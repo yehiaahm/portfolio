@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Code2, Sparkles } from "lucide-react";
 import { useMousePosition } from "@/lib/hooks/useMousePosition";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { basePath } from "@/lib/basePath";
 
 export default function PortraitArt({ hasPortrait }: { hasPortrait: boolean }) {
   const { t } = useLanguage();
@@ -68,7 +69,7 @@ export default function PortraitArt({ hasPortrait }: { hasPortrait: boolean }) {
               className="relative h-full w-full"
             >
               <Image
-                src="/images/portrait.jpg"
+                src={`${basePath}/images/portrait.jpg`}
                 alt="Portrait of Yehia Ahmed"
                 fill
                 priority

@@ -1,4 +1,5 @@
 import { FlaskConical } from "lucide-react";
+import { basePath } from "@/lib/basePath";
 
 const accentMap = {
   clay: { bg: "bg-clay-300", soft: "bg-clay-100", text: "text-clay-500", ring: "ring-clay-300/40", hex: "#C96A45" },
@@ -28,7 +29,7 @@ function PharmacyPreview({}: { accent: keyof typeof accentMap }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="absolute inset-0 h-full w-full object-cover"
-          src="/images/pharmacy-storefront.jpg"
+          src={`${basePath}/images/pharmacy-storefront.jpg`}
           alt="صيدلية أحمد علاء الدين storefront"
         />
         <div className="absolute inset-0 bg-[#0A0F1D]/90" />
@@ -55,7 +56,7 @@ function PetMatePreview({}: { accent: keyof typeof accentMap }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="absolute inset-0 h-full w-full object-cover object-top"
-          src="/images/petmate-screenshot.jpg"
+          src={`${basePath}/images/petmate-screenshot.jpg`}
           alt="PetMate — pet breeding matchmaking platform"
         />
       </div>
@@ -68,8 +69,8 @@ function FitnessPreview({}: { accent: keyof typeof accentMap }) {
     <BrowserChrome>
       <video
         className="h-full w-full rounded-lg object-cover"
-        src="/videos/fitness-demo.mp4"
-        poster="/images/fitness-poster.jpg"
+        src={`${basePath}/videos/fitness-demo.mp4`}
+        poster={`${basePath}/images/fitness-poster.jpg`}
         controls
         muted
         playsInline
@@ -84,8 +85,8 @@ function AnimaSysPreview({}: { accent: keyof typeof accentMap }) {
     <BrowserChrome>
       <video
         className="h-full w-full rounded-lg object-cover"
-        src="/videos/animasys-demo.mp4"
-        poster="/images/animasys-poster.jpg"
+        src={`${basePath}/videos/animasys-demo.mp4`}
+        poster={`${basePath}/images/animasys-poster.jpg`}
         controls
         muted
         playsInline

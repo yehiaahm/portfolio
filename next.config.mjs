@@ -1,8 +1,17 @@
 /** @type {import('next').NextConfig} */
+const basePath = "/portfolio";
+
 const nextConfig = {
   reactStrictMode: true,
+  output: "export",
+  basePath,
+  assetPrefix: `${basePath}/`,
+  trailingSlash: true,
   images: {
-    formats: ["image/avif", "image/webp"],
+    unoptimized: true,
+  },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
 };
 
