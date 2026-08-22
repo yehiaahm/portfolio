@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: theme("colors.ink.DEFAULT") transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: clip;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: theme("colors.ink.DEFAULT");
+  border-radius: 999px;
+  border: 3px solid theme("colors.cream.100");
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  [role="button"] {
+    cursor: none;
+  }
+}
+
+.font-serif em,
+.font-serif i {
+  font-style: italic;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+@layer utilities {
+  .clip-reveal {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .container-px {
+    @apply px-6 sm:px-10 lg:px-16;
+  }
+
+  .noise-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+}
+
+.mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.hero-grid {
+  grid-template-areas: "heading" "photo" "body";
+}
+
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-areas: "heading photo" "body photo";
+  }
+}
+
+[dir="rtl"] .font-display,
+[dir="rtl"] .font-serif,
+[dir="rtl"] .font-sans,
+[dir="rtl"] .font-mono {
+  font-family: var(--font-arabic), sans-serif;
+}
+
+[dir="rtl"] .font-serif {
+  font-style: normal;
+}
+
+[dir="rtl"] .tracking-widest2,
+[dir="rtl"] .tracking-tight,
+[dir="rtl"] .tracking-tighter,
+[dir="rtl"] .tracking-tightest,
+[dir="rtl"] .tracking-wide,
+[dir="rtl"] .text-display-xl,
+[dir="rtl"] .text-display-lg,
+[dir="rtl"] .text-display-md,
+[dir="rtl"] .text-display-sm {
+  letter-spacing: normal;
+}
+
+@media (min-width: 1024px) {
+  [dir="rtl"] .hero-grid {
+    grid-template-areas: "photo heading" "photo body";
+  }
+}
+
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
