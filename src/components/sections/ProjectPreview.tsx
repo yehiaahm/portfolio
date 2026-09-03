@@ -96,11 +96,57 @@ function AnimaSysPreview({}: { accent: keyof typeof accentMap }) {
   );
 }
 
+function MerrierPreview({}: { accent: keyof typeof accentMap }) {
+  const rings = 8;
+  const cx = 100;
+  const cy = 100;
+  const dots: { cx: number; cy: number; r: number; opacity: number }[] = [];
+  for (let ring = 1; ring <= rings; ring++) {
+    const radius = ring * 9;
+    const count = ring * 6;
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2;
+      dots.push({
+        cx: Number((cx + Math.cos(angle) * radius).toFixed(2)),
+        cy: Number((cy + Math.sin(angle) * radius).toFixed(2)),
+        r: 1.5,
+        opacity: Number(Math.max(0.08, 1 - ring / rings).toFixed(2)),
+      });
+    }
+  }
+
+  return (
+    <BrowserChrome>
+      <div className="relative flex h-full w-full flex-col items-center justify-center gap-2 overflow-hidden rounded-lg bg-[#ECE5D8] px-4 text-center">
+        <svg viewBox="0 0 200 200" className="absolute h-[150%] w-[150%]">
+          {dots.map((d, i) => (
+            <circle key={i} cx={d.cx} cy={d.cy} r={d.r} fill="#D6421D" opacity={d.opacity} />
+          ))}
+          <circle cx={cx} cy={cy} r={9} fill="#D6421D" />
+        </svg>
+        <div className="relative z-10 flex flex-col items-center gap-2">
+          <span className="rounded-full border border-[#D6421D]/40 px-2.5 py-1 font-mono text-[8px] tracking-[0.2em] text-[#D6421D]">
+            EST. 2024 · STREETWEAR
+          </span>
+          <h4 className="text-2xl font-black uppercase leading-[0.92] tracking-tight text-[#1C1712] sm:text-3xl">
+            Choose
+            <br />
+            Your
+            <br />
+            Merrier
+          </h4>
+        </div>
+      </div>
+    </BrowserChrome>
+  );
+}
+
 const previews = {
   "Pharmacy E-commerce & ERP": PharmacyPreview,
   AnimaSys: AnimaSysPreview,
   "AI Fitness & Nutrition Coaching Platform": FitnessPreview,
   PetMate: PetMatePreview,
+  MERRIER: MerrierPreview,
 };
 
 export default function ProjectPreview({

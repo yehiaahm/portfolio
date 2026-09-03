@@ -74,6 +74,7 @@ export default function ProjectCard({ project, reverse }: { project: Project; re
                   | "AnimaSys"
                   | "AI Fitness & Nutrition Coaching Platform"
                   | "PetMate"
+                  | "MERRIER"
               }
               accent={project.accent}
             />

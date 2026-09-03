@@ -251,6 +251,27 @@ export const translations: Record<Locale, Dictionary> = {
           year: "2024",
           accent: "clay",
         },
+        {
+          index: "05",
+          status: "Individual Project",
+          name: "MERRIER",
+          tagline:
+            "A full storefront for an independent streetwear label — browse, shop, and check out in one seamless experience.",
+          problem:
+            "Independent clothing labels need more than a landing page — customers expect a real storefront: a browsable collection, product detail pages, a working cart and wishlist, and accounts, without the overhead of a heavyweight e-commerce platform.",
+          build:
+            "A custom Next.js storefront for MERRIER, an independent streetwear label — an animated landing experience, a browsable product collection with detail pages and image galleries, cart and wishlist, and account creation and sign-in, built and shipped as a live e-commerce site.",
+          role:
+            "Full-stack developer, solo project — designed and built the storefront frontend, product catalog, cart/wishlist and account flows, and handled deployment.",
+          value:
+            "Shows the ability to design and ship a real consumer-facing e-commerce product for an actual brand — not a demo shop, but a site that's live today and used by real customers.",
+          edge:
+            "Built from scratch for a real, currently operating clothing brand rather than a portfolio-only demo — brand identity, product presentation, and the full shopping flow all shipped together as one cohesive product.",
+          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+          year: "2026",
+          accent: "clay",
+          liveUrl: "https://merriereg-production.up.railway.app/",
+        },
       ],
     },
     capabilities: {
@@ -482,6 +503,25 @@ export const translations: Record<Locale, Dictionary> = {
           tech: ["React", "TypeScript", "Vite", "Prisma", "PostgreSQL", "Tailwind CSS"],
           year: "2024",
           accent: "clay",
+        },
+        {
+          index: "05",
+          status: "مشروع فردي",
+          name: "MERRIER",
+          tagline: "متجر إلكتروني متكامل لبراند ستريت وير مستقل — تصفح وتسوّق وأكمل طلبك في تجربة واحدة سلسة.",
+          problem:
+            "البراندات المستقلة للملابس محتاجة أكتر من مجرد صفحة هبوط — العميل بيتوقع متجر حقيقي: تصفح كوليكشن، صفحات تفاصيل منتج، سلة وwishlist شغالين فعلاً، وحسابات مستخدمين، من غير تعقيد منصات التجارة الإلكترونية التقيلة.",
+          build:
+            "متجر إلكتروني مبني بـ Next.js لبراند MERRIER، براند ستريت وير مستقل — تجربة هبوط بصرية متحركة، كوليكشن منتجات قابل للتصفح بصفحات تفاصيل وجاليري صور، سلة وwishlist، وتسجيل دخول وإنشاء حساب، اتبنى واتنشر كموقع تجارة إلكترونية شغال فعليًا.",
+          role: "مطور متكامل، مشروع فردي — صممت وبنيت واجهة المتجر، كتالوج المنتجات، سير السلة والـwishlist والحسابات، وتوليت عملية النشر.",
+          value:
+            "بيوضح القدرة على تصميم وتسليم منتج تجارة إلكترونية حقيقي موجّه للمستهلك لبراند فعلي — مش متجر تجريبي، موقع شغال دلوقتي وبيستخدمه عملاء حقيقيين.",
+          edge:
+            "اتبنى من الصفر لبراند ملابس حقيقي شغال فعليًا مش مجرد ديمو للبورتفوليو — هوية البراند وعرض المنتجات وتجربة التسوق كلهم اتسلموا مع بعض كمنتج واحد متكامل.",
+          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+          year: "2026",
+          accent: "clay",
+          liveUrl: "https://merriereg-production.up.railway.app/",
         },
       ],
     },
