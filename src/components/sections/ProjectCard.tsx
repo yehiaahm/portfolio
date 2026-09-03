@@ -29,7 +29,15 @@ const accentBorder: Record<Project["accent"], string> = {
   sky: "border-sky-300",
 };
 
-export default function ProjectCard({ project, reverse }: { project: Project; reverse?: boolean }) {
+export default function ProjectCard({
+  project,
+  reverse,
+  compact,
+}: {
+  project: Project;
+  reverse?: boolean;
+  compact?: boolean;
+}) {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const rx = useMotionValue(0);
@@ -53,7 +61,13 @@ export default function ProjectCard({ project, reverse }: { project: Project; re
   };
 
   return (
-    <div className="grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:py-28">
+    <div
+      className={
+        compact
+          ? "grid gap-8 py-12 sm:py-14 lg:grid-cols-2 lg:gap-12 lg:py-16"
+          : "grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:py-28"
+      }
+    >
       <FadeIn className={reverse ? "lg:order-2" : ""} amount={0.25}>
         <div
           ref={ref}
@@ -92,7 +106,15 @@ export default function ProjectCard({ project, reverse }: { project: Project; re
             <span>{project.year}</span>
           </div>
 
-          <h3 className="font-display text-4xl font-medium text-ink sm:text-5xl">{project.name}</h3>
+          <h3
+            className={
+              compact
+                ? "font-display text-3xl font-medium text-ink sm:text-4xl"
+                : "font-display text-4xl font-medium text-ink sm:text-5xl"
+            }
+          >
+            {project.name}
+          </h3>
           <p className="mt-4 max-w-md text-pretty text-lg leading-relaxed text-ink-50">{project.tagline}</p>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
@@ -130,6 +152,14 @@ export default function ProjectCard({ project, reverse }: { project: Project; re
               </span>
             ))}
           </div>
+
+          {project.result && (
+            <div className="mt-6 flex items-center gap-3">
+              <span className="font-mono text-[11px] uppercase tracking-widest2 text-ink-50/60">{t.work.resultLabel}</span>
+              <span className={`h-1.5 w-1.5 rounded-full ${accentBg[project.accent]}`} />
+              <span className="text-sm font-medium text-ink">{project.result}</span>
+            </div>
+          )}
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
             {project.liveUrl && (

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { Code2, Sparkles } from "lucide-react";
+import { Code2 } from "lucide-react";
 import { useMousePosition } from "@/lib/hooks/useMousePosition";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { basePath } from "@/lib/basePath";
@@ -102,23 +102,6 @@ export default function PortraitArt({ hasPortrait }: { hasPortrait: boolean }) {
         >
           <Code2 size={16} className="text-clay-400" />
           <span className="font-mono text-xs uppercase tracking-widest2 text-ink-50">{t.hero.badgeFullStack}</span>
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.7, delay: 1.65, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute -right-4 bottom-10 sm:-right-8"
-      >
-        <motion.div
-          animate={reduceMotion ? {} : { y: [0, 10, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-          style={{ transform: `translate(${px * 16}px, ${py * 16}px)` }}
-          className="flex items-center gap-2 rounded-2xl border border-ink/10 bg-cream-50/90 px-4 py-3 shadow-lg backdrop-blur-sm"
-        >
-          <Sparkles size={16} className="text-sage-500" />
-          <span className="font-mono text-xs uppercase tracking-widest2 text-ink-50">{t.hero.badgeCsStudent}</span>
         </motion.div>
       </motion.div>
     </motion.div>

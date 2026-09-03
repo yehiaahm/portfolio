@@ -14,6 +14,7 @@ export interface Project {
   year: string;
   accent: "clay" | "sage" | "gold" | "sky";
   liveUrl?: string;
+  result?: string;
 }
 
 export interface Dictionary {
@@ -40,7 +41,6 @@ export interface Dictionary {
     scroll: string;
     keywords: string[];
     badgeFullStack: string;
-    badgeCsStudent: string;
   };
   about: {
     index: string;
@@ -60,6 +60,8 @@ export interface Dictionary {
     builtLabel: string;
     roleLabel: string;
     edgeLabel: string;
+    resultLabel: string;
+    moreLabel: string;
     ctaDiscuss: string;
     ctaLive: string;
     projects: Project[];
@@ -122,11 +124,11 @@ export const translations: Record<Locale, Dictionary> = {
     hero: {
       badge: "Available for opportunities",
       name: "Yehia Ahmed",
-      line2: "I build digital",
-      line3: "experiences that ",
-      accentWord: "matter.",
+      line2: "I build software small",
+      line3: "businesses actually ",
+      accentWord: "run on.",
       tagline:
-        "Computer Science student and digital product builder. I turn ideas into modern web products that look great, work smoothly, and create real value.",
+        "Full-stack developer building operational systems for small businesses — pharmacy e-commerce and inventory, retail storefronts, service-shop management — not portfolio demos.",
       ctaWork: "Selected Work",
       ctaTalk: "Let's Talk",
       scroll: "Scroll",
@@ -139,7 +141,6 @@ export const translations: Record<Locale, Dictionary> = {
         "Clean Code",
       ],
       badgeFullStack: "Full-Stack",
-      badgeCsStudent: "CS Student",
     },
     about: {
       index: "02",
@@ -147,14 +148,13 @@ export const translations: Record<Locale, Dictionary> = {
       heading1: "I care about the details most people scroll past — ",
       heading2: "the ones that make something feel finished.",
       body: [
-        "I'm Yehia Ahmed, a Computer Science student and digital product builder passionate about creating modern websites, web applications, and digital experiences.",
-        "I combine technology, design, and product thinking to turn ideas into polished digital products — not just functional, but engaging and visually impressive.",
-        "I enjoy working on real-world problems, building products from the ground up, and continuously exploring new technologies to create better digital experiences.",
+        "I'm Yehia Ahmed, a full-stack developer who builds real operational software for small businesses — the kind that handles inventory, orders, and day-to-day operations, not just a landing page.",
+        "I work across the stack — React and Next.js on the frontend, Java, Spring Boot, and Node.js on the backend, MySQL and PostgreSQL underneath — picking whatever the problem actually calls for.",
+        "I care about shipping software that holds up in production, not just in a demo — from a pharmacy's inventory system to a storefront customers use every day.",
       ],
       factsLabel: "Quick Facts",
       facts: [
         { label: "Focus", value: "Full-Stack Web Development" },
-        { label: "Currently", value: "Computer Science Student" },
         { label: "Working style", value: "Remote-friendly" },
         { label: "Available", value: "Open to opportunities" },
       ],
@@ -169,6 +169,8 @@ export const translations: Record<Locale, Dictionary> = {
       builtLabel: "What I Built",
       roleLabel: "My Role",
       edgeLabel: "What Makes It Different",
+      resultLabel: "Result",
+      moreLabel: "More Work",
       ctaDiscuss: "Discuss a project like this",
       ctaLive: "View Live Site",
       projects: [
@@ -185,16 +187,39 @@ export const translations: Record<Locale, Dictionary> = {
           role:
             "Full-stack developer, solo project — built the frontend, backend, database, deployment, and the integration between them.",
           value:
-            "Demonstrates the ability to design a real operational system — handling product variants, batch numbers, and expiry-date tracking — not just a storefront bolted onto a shopping cart.",
+            "The part that took the most care wasn't the storefront — it was getting batch numbers and expiry dates right, the detail that turns a demo into something a pharmacy could actually run on.",
           edge:
             "Combines customer experience, pharmacy operations, and inventory management in one system — with real batch and expiry-date tracking that makes it closer to production-grade software than an academic exercise.",
           tech: ["React 19", "TypeScript", "Spring Boot 3", "Java 21", "MySQL", "Spring Security / JWT", "TanStack Query", "IndexedDB"],
           year: "2025",
           accent: "sage",
           liveUrl: "https://dahmed-production.up.railway.app/",
+          result: "Live and deployed.",
         },
         {
           index: "02",
+          status: "Individual Project",
+          name: "MERRIER",
+          tagline:
+            "A full storefront for an independent streetwear label — browse, shop, and check out in one seamless experience.",
+          problem:
+            "Independent clothing labels need more than a landing page — customers expect a real storefront: a browsable collection, product detail pages, a working cart and wishlist, and accounts, without the overhead of a heavyweight e-commerce platform.",
+          build:
+            "A custom Next.js storefront for MERRIER, an independent streetwear label — an animated landing experience, a browsable product collection with detail pages and image galleries, cart and wishlist, and account creation and sign-in, built and shipped as a live e-commerce site.",
+          role:
+            "Full-stack developer, solo project — designed and built the storefront frontend, product catalog, cart/wishlist and account flows, and handled deployment.",
+          value:
+            "It's live, it's used by real customers, and that changes how you build — every edge case in the cart and checkout flow actually gets hit.",
+          edge:
+            "Built from scratch for a real, currently operating clothing brand rather than a portfolio-only demo — brand identity, product presentation, and the full shopping flow all shipped together as one cohesive product.",
+          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+          year: "2026",
+          accent: "clay",
+          liveUrl: "https://merriereg-production.up.railway.app/",
+          result: "Live today — used by real customers.",
+        },
+        {
+          index: "03",
           status: "Individual Project",
           name: "AnimaSys",
           tagline:
@@ -206,32 +231,12 @@ export const translations: Record<Locale, Dictionary> = {
           role:
             "Full-stack developer, solo project — designed the system architecture, frontend, business workflows, AI features, desktop packaging, and the deployment/installation flow.",
           value:
-            "Proves the ability to combine traditional business systems with an AI intelligence layer, then ship it as production-grade desktop software, not just a web dashboard.",
+            "Packaging it as a real desktop installer — embedded database included — was harder than any of the AI features, and probably matters more.",
           edge:
             "Packaged as a standalone Windows desktop app with a fully embedded backend and database (portable JRE + MySQL), plus an AI chat companion that explains the business data instead of just displaying it.",
           tech: ["React", "TypeScript", "Electron", "Spring Boot", "Java", "MySQL", "Zustand", "Inno Setup"],
           year: "2026",
           accent: "gold",
-        },
-        {
-          index: "03",
-          status: "Individual Project",
-          name: "AI Fitness & Nutrition Coaching Platform",
-          tagline:
-            "A unified AI coaching platform that brings workouts, nutrition, and progress tracking into one personalized experience.",
-          problem:
-            "People often struggle to follow a consistent fitness and nutrition plan because workout routines, nutrition guidance, and progress tracking are usually spread across different apps or handled manually.",
-          build:
-            "An AI-powered fitness and nutrition coaching platform bringing together personalized fitness planning, workout management, nutrition guidance, progress tracking, and a dashboard — built as an MVP with a scalable architecture ready to connect to a full backend and AI services.",
-          role:
-            "Full-stack / product developer, solo project — worked on the product concept, user experience, frontend architecture, application workflows, and the overall platform structure.",
-          value:
-            "Demonstrates the ability to design a coherent AI-driven product experience from the ground up, not just implement isolated screens — architecture built to scale into real backend and AI services.",
-          edge:
-            "Combines fitness, nutrition, and AI coaching into one unified experience instead of another basic workout tracker — designed as a digital coaching layer focused on personalization, not just data display.",
-          tech: ["React", "TypeScript", "Vite", "Modern Frontend Architecture", "localStorage (MVP)", "AI-Oriented Architecture"],
-          year: "2026",
-          accent: "sky",
         },
         {
           index: "04",
@@ -244,7 +249,7 @@ export const translations: Record<Locale, Dictionary> = {
             "A web platform that connects pet owners and helps them discover suitable breeding matches — structured pet profiles, a discovery and matching workflow, and a modern, responsive interface built around finding the right match rather than browsing at random.",
           role: "Full-stack developer, solo project — designed and built the frontend, backend, and database from scratch.",
           value:
-            "Shows the ability to turn a real-world problem into a specialized product experience — not just another CRUD app, but a matching-oriented platform built around discovery.",
+            "Once discovery and matching were built to work together instead of as separate features, it stopped feeling like another CRUD app.",
           edge:
             "Built around structured discovery and matching rather than generic profile browsing — profiles, discovery, and matching work together as one coherent product experience.",
           tech: ["React", "TypeScript", "Vite", "Prisma", "PostgreSQL", "Tailwind CSS"],
@@ -254,23 +259,22 @@ export const translations: Record<Locale, Dictionary> = {
         {
           index: "05",
           status: "Individual Project",
-          name: "MERRIER",
+          name: "AI Fitness & Nutrition Coaching Platform",
           tagline:
-            "A full storefront for an independent streetwear label — browse, shop, and check out in one seamless experience.",
+            "A unified AI coaching platform that brings workouts, nutrition, and progress tracking into one personalized experience.",
           problem:
-            "Independent clothing labels need more than a landing page — customers expect a real storefront: a browsable collection, product detail pages, a working cart and wishlist, and accounts, without the overhead of a heavyweight e-commerce platform.",
+            "People often struggle to follow a consistent fitness and nutrition plan because workout routines, nutrition guidance, and progress tracking are usually spread across different apps or handled manually.",
           build:
-            "A custom Next.js storefront for MERRIER, an independent streetwear label — an animated landing experience, a browsable product collection with detail pages and image galleries, cart and wishlist, and account creation and sign-in, built and shipped as a live e-commerce site.",
+            "An AI-powered fitness and nutrition coaching platform bringing together personalized fitness planning, workout management, nutrition guidance, progress tracking, and a dashboard — built as an MVP with a scalable architecture ready to connect to a full backend and AI services.",
           role:
-            "Full-stack developer, solo project — designed and built the storefront frontend, product catalog, cart/wishlist and account flows, and handled deployment.",
+            "Full-stack / product developer, solo project — worked on the product concept, user experience, frontend architecture, application workflows, and the overall platform structure.",
           value:
-            "Shows the ability to design and ship a real consumer-facing e-commerce product for an actual brand — not a demo shop, but a site that's live today and used by real customers.",
+            "Still an MVP with no backend behind it yet, but the architecture was built assuming a real one is coming — that's the part I'd point to.",
           edge:
-            "Built from scratch for a real, currently operating clothing brand rather than a portfolio-only demo — brand identity, product presentation, and the full shopping flow all shipped together as one cohesive product.",
-          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+            "Combines fitness, nutrition, and AI coaching into one unified experience instead of another basic workout tracker — designed as a digital coaching layer focused on personalization, not just data display.",
+          tech: ["React", "TypeScript", "Vite", "Modern Frontend Architecture", "localStorage (MVP)", "AI-Oriented Architecture"],
           year: "2026",
-          accent: "clay",
-          liveUrl: "https://merriereg-production.up.railway.app/",
+          accent: "sky",
         },
       ],
     },
@@ -309,11 +313,11 @@ export const translations: Record<Locale, Dictionary> = {
       heading: "The stack behind the work.",
       description: "Tools I reach for often — chosen because they're reliable, not because they're trendy.",
       groups: [
-        { title: "Languages", skills: ["TypeScript", "JavaScript", "Python", "C++", "SQL"] },
-        { title: "Frontend", skills: ["React", "Next.js", "Tailwind CSS", "Framer Motion"] },
-        { title: "Backend", skills: ["Node.js", "Express", "REST APIs", "WebSockets"] },
-        { title: "Data & Infra", skills: ["PostgreSQL", "MongoDB", "Redis", "Docker"] },
-        { title: "Tools", skills: ["Git", "Figma", "Vercel", "Linux"] },
+        { title: "Languages", skills: ["TypeScript", "Java", "SQL"] },
+        { title: "Frontend", skills: ["React", "Next.js", "Tailwind CSS", "Vite"] },
+        { title: "Backend", skills: ["Spring Boot", "Spring Security / JWT", "REST APIs", "Prisma"] },
+        { title: "Data & Infra", skills: ["MySQL", "PostgreSQL", "IndexedDB", "Railway"] },
+        { title: "Desktop & Tools", skills: ["Electron", "Zustand", "TanStack Query", "Git"] },
       ],
     },
     process: {
@@ -362,7 +366,7 @@ export const translations: Record<Locale, Dictionary> = {
       ],
     },
     footer: {
-      tagline: "Computer Science student and digital product builder, turning ideas into polished web experiences.",
+      tagline: "Full-stack developer building operational software for small businesses.",
       designedBy: "Designed & built by Yehia Ahmed",
       rights: "All rights reserved.",
     },
@@ -382,11 +386,11 @@ export const translations: Record<Locale, Dictionary> = {
     hero: {
       badge: "متاح لفرص جديدة",
       name: "يحيى أحمد",
-      line2: "أبني تجارب رقمية",
-      line3: "ليها ",
-      accentWord: "قيمة حقيقية.",
+      line2: "أبني الأنظمة اللي",
+      line3: "شركات صغيرة فعلاً ",
+      accentWord: "بتشتغل بيها.",
       tagline:
-        "طالب علوم حاسب وباني منتجات رقمية. بحوّل الأفكار لمنتجات ويب حديثة، شكلها حلو، شغالة كويس، وبتقدّم قيمة حقيقية.",
+        "مطور full-stack بابني أنظمة تشغيلية لشركات صغيرة — منصات صيدليات إلكترونية ومخزون، متاجر تجزئة، وأنظمة إدارة محلات — مش مجرد عروض بورتفوليو.",
       ctaWork: "أعمالي المختارة",
       ctaTalk: "لنتحدث",
       scroll: "مرّر لأسفل",
@@ -399,7 +403,6 @@ export const translations: Record<Locale, Dictionary> = {
         "كود نظيف",
       ],
       badgeFullStack: "مطور متكامل",
-      badgeCsStudent: "طالب علوم حاسب",
     },
     about: {
       index: "02",
@@ -407,14 +410,13 @@ export const translations: Record<Locale, Dictionary> = {
       heading1: "بهتم بالتفاصيل اللي أغلب الناس بيتخطوها — ",
       heading2: "اللي بتخلي أي حاجة تحس إنها متقنة فعلاً.",
       body: [
-        "أنا يحيى أحمد، طالب علوم حاسب وباني منتجات رقمية، شغوف ببناء مواقع وتطبيقات ويب وتجارب رقمية حديثة.",
-        "بدمج بين التكنولوجيا والتصميم والتفكير المنتجي عشان أحوّل الأفكار لمنتجات رقمية متقنة — مش بس شغالة، لكن جذابة ومبهرة بصريًا كمان.",
-        "بحب أشتغل على مشاكل حقيقية، وأبني منتجات من الصفر، وباستمرار بستكشف تقنيات جديدة عشان أقدّم تجارب رقمية أحسن.",
+        "أنا يحيى أحمد، مطور full-stack بابني أنظمة تشغيلية حقيقية لشركات صغيرة — من النوع اللي بيدير المخزون والطلبات والعمليات اليومية، مش مجرد صفحة هبوط.",
+        "بشتغل على الستاك بالكامل — React وNext.js في الواجهة، Java وSpring Boot وNode.js في الخلفية، MySQL وPostgreSQL تحتها — واختار اللي المشكلة فعلاً محتاجاه.",
+        "بهتم إني أسلّم برنامج شغال فعليًا في الإنتاج مش بس في العرض التجريبي — من نظام مخزون صيدلية لمتجر بيستخدمه عملاء كل يوم.",
       ],
       factsLabel: "معلومات سريعة",
       facts: [
         { label: "التركيز", value: "تطوير الويب المتكامل" },
-        { label: "حاليًا", value: "طالب علوم حاسب" },
         { label: "طريقة العمل", value: "عن بُعد" },
         { label: "التوفر", value: "متاح لفرص جديدة" },
       ],
@@ -428,6 +430,8 @@ export const translations: Record<Locale, Dictionary> = {
       builtLabel: "إيه اللي بنيته",
       roleLabel: "دوري",
       edgeLabel: "إيه اللي يميزه",
+      resultLabel: "النتيجة",
+      moreLabel: "أعمال إضافية",
       ctaDiscuss: "نتكلم عن مشروع زي ده",
       ctaLive: "شوف الموقع لايف",
       projects: [
@@ -442,16 +446,37 @@ export const translations: Record<Locale, Dictionary> = {
             "منصة صيدلية متكاملة بتجمع بين واجهة تسوق للعملاء ونظام ERP على مستوى الفروع — كتالوج منتجات، بحث ومتغيرات، سلة وطلبات، إدارة مخزون وتتبع كميات مع الدفعات وتواريخ الصلاحية، تسعير، مصادقة، وأدوات إدارية، مع تخزين مؤقت أوفلاين عبر IndexedDB.",
           role: "مطور متكامل، مشروع فردي — بنيت الواجهة الأمامية والخلفية وقاعدة البيانات والنشر والربط بينهم.",
           value:
-            "بيوضح القدرة على تصميم نظام تشغيلي حقيقي — بيتعامل مع متغيرات المنتجات وأرقام الدفعات وتواريخ الصلاحية — مش مجرد متجر إلكتروني بسيط.",
+            "الجزء اللي اخد مجهود أكتر مكنش واجهة المتجر — كان إني أظبط أرقام الدفعات وتواريخ الصلاحية صح، التفصيلة اللي بتفرق بين مشروع تجريبي وحاجة صيدلية تقدر تشتغل بيها فعلاً.",
           edge:
             "بيجمع بين تجربة العميل وعمليات الصيدلية وإدارة المخزون في نظام واحد — مع تتبع حقيقي للدفعات وتواريخ الصلاحية بيخليه أقرب لبرنامج جاهز للاستخدام الفعلي مش مجرد مشروع أكاديمي.",
           tech: ["React 19", "TypeScript", "Spring Boot 3", "Java 21", "MySQL", "Spring Security / JWT", "TanStack Query", "IndexedDB"],
           year: "2025",
           accent: "sage",
           liveUrl: "https://dahmed-production.up.railway.app/",
+          result: "شغال ومنشور فعليًا.",
         },
         {
           index: "02",
+          status: "مشروع فردي",
+          name: "MERRIER",
+          tagline: "متجر إلكتروني متكامل لبراند ستريت وير مستقل — تصفح وتسوّق وأكمل طلبك في تجربة واحدة سلسة.",
+          problem:
+            "البراندات المستقلة للملابس محتاجة أكتر من مجرد صفحة هبوط — العميل بيتوقع متجر حقيقي: تصفح كوليكشن، صفحات تفاصيل منتج، سلة وwishlist شغالين فعلاً، وحسابات مستخدمين، من غير تعقيد منصات التجارة الإلكترونية التقيلة.",
+          build:
+            "متجر إلكتروني مبني بـ Next.js لبراند MERRIER، براند ستريت وير مستقل — تجربة هبوط بصرية متحركة، كوليكشن منتجات قابل للتصفح بصفحات تفاصيل وجاليري صور، سلة وwishlist، وتسجيل دخول وإنشاء حساب، اتبنى واتنشر كموقع تجارة إلكترونية شغال فعليًا.",
+          role: "مطور متكامل، مشروع فردي — صممت وبنيت واجهة المتجر، كتالوج المنتجات، سير السلة والـwishlist والحسابات، وتوليت عملية النشر.",
+          value:
+            "الموقع شغال فعليًا وبيستخدمه عملاء حقيقيين، وده بيغير طريقة البناء — كل حالة استثنائية في السلة والـcheckout بتتواجه فعلاً مش نظريًا.",
+          edge:
+            "اتبنى من الصفر لبراند ملابس حقيقي شغال فعليًا مش مجرد ديمو للبورتفوليو — هوية البراند وعرض المنتجات وتجربة التسوق كلهم اتسلموا مع بعض كمنتج واحد متكامل.",
+          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+          year: "2026",
+          accent: "clay",
+          liveUrl: "https://merriereg-production.up.railway.app/",
+          result: "شغال دلوقتي — وبيستخدمه عملاء حقيقيين.",
+        },
+        {
+          index: "03",
           status: "مشروع فردي",
           name: "AnimaSys",
           tagline: "نظام ERP مدعوم بالذكاء الاصطناعي لمحلات الحيوانات الأليفة — متجهز كتطبيق سطح مكتب مستقل بقاعدة بياناته الخاصة.",
@@ -461,30 +486,12 @@ export const translations: Record<Locale, Dictionary> = {
             "نظام ERP داخلي لمحلات الحيوانات الأليفة بيغطي الإيرادات اليومية ومعاملات الكاشير، إدارة المخزون بالمسح بالباركود/QR، خدمات العناية، والصلاحيات حسب الدور — مع طبقة رؤى ذكاء اصطناعي ومساعد محادثة ذكي، ومتجهز كتطبيق ويندوز مستقل.",
           role: "مطور متكامل، مشروع فردي — صممت معمارية النظام والواجهة الأمامية وسير العمل التجاري وميزات الذكاء الاصطناعي وتجهيز نسخة سطح المكتب وعملية النشر والتثبيت.",
           value:
-            "بيثبت القدرة على دمج أنظمة الأعمال التقليدية مع طبقة ذكاء اصطناعي، وتسليمه كبرنامج سطح مكتب جاهز للاستخدام الفعلي، مش مجرد لوحة تحكم ويب.",
+            "تجهيزه كتطبيق سطح مكتب حقيقي بقاعدة بيانات مدمجة كان أصعب من أي ميزة ذكاء اصطناعي فيه — وممكن يكون ده اللي بيفرق أكتر.",
           edge:
             "متجهز كتطبيق ويندوز مستقل بخلفية وقاعدة بيانات مدمجة بالكامل (JRE محمول + MySQL)، مع مساعد محادثة ذكاء اصطناعي بيشرح بيانات العمل بدل ما يعرضها بس.",
           tech: ["React", "TypeScript", "Electron", "Spring Boot", "Java", "MySQL", "Zustand", "Inno Setup"],
           year: "2026",
           accent: "gold",
-        },
-        {
-          index: "03",
-          status: "مشروع فردي",
-          name: "AI Fitness & Nutrition Coaching Platform",
-          tagline: "منصة تدريب ذكية بتجمع التمارين والتغذية ومتابعة التقدم في تجربة واحدة شخصية.",
-          problem:
-            "الناس غالبًا بتواجه صعوبة في الالتزام بخطة لياقة وتغذية ثابتة لأن التمارين والإرشادات الغذائية ومتابعة التقدم بتكون متفرقة على تطبيقات مختلفة أو بتتعمل يدويًا.",
-          build:
-            "منصة لياقة وتغذية مدعومة بالذكاء الاصطناعي بتجمع بين تخطيط لياقة شخصي، إدارة تمارين، إرشاد غذائي، متابعة تقدم، ولوحة تحكم — بُنيت كـ MVP بمعمارية قابلة للتوسع جاهزة للربط بـbackend كامل وخدمات ذكاء اصطناعي.",
-          role: "مطور متكامل ومنتج، مشروع فردي — اشتغلت على فكرة المنتج، تجربة المستخدم، معمارية الواجهة الأمامية، سير عمل التطبيق، وهيكلة المنصة ككل.",
-          value:
-            "بيوضح القدرة على تصميم تجربة منتج مدعومة بالذكاء الاصطناعي من الصفر بشكل متماسك، مش بس تنفيذ شاشات منفصلة — معمارية مبنية عشان تتوسع لbackend وخدمات ذكاء اصطناعي حقيقية.",
-          edge:
-            "بيجمع اللياقة والتغذية والتدريب بالذكاء الاصطناعي في تجربة واحدة متكاملة بدل ما يكون تطبيق تتبع تمارين تقليدي — مصمم كطبقة تدريب رقمية بتركز على التخصيص الشخصي مش بس عرض البيانات.",
-          tech: ["React", "TypeScript", "Vite", "Modern Frontend Architecture", "localStorage (MVP)", "AI-Oriented Architecture"],
-          year: "2026",
-          accent: "sky",
         },
         {
           index: "04",
@@ -497,7 +504,7 @@ export const translations: Record<Locale, Dictionary> = {
             "منصة ويب بتربط أصحاب الحيوانات الأليفة وتساعدهم يكتشفوا حيوانات مناسبة للتزاوج — بروفايلات منظمة، آلية اكتشاف ومطابقة، وواجهة عصرية متجاوبة مبنية حول إيجاد المطابقة الصح مش التصفح العشوائي.",
           role: "مطور متكامل، مشروع فردي — صممت وبنيت الواجهة الأمامية والخلفية وقاعدة البيانات من الصفر.",
           value:
-            "بيوضح القدرة على تحويل مشكلة واقعية لتجربة منتج متخصصة — مش مجرد تطبيق CRUD تاني، لكن منصة مبنية حول فكرة الاكتشاف.",
+            "لما الاكتشاف والمطابقة اشتغلوا مع بعض بدل ما يكونوا ميزتين منفصلتين، المنصة بطلت تحس إنها تطبيق CRUD تاني.",
           edge:
             "مبني حول الاكتشاف والمطابقة المنظمة بدل التصفح العشوائي للبروفايلات — البروفايلات والاكتشاف والمطابقة بتشتغل مع بعض كتجربة منتج واحدة متكاملة.",
           tech: ["React", "TypeScript", "Vite", "Prisma", "PostgreSQL", "Tailwind CSS"],
@@ -507,21 +514,20 @@ export const translations: Record<Locale, Dictionary> = {
         {
           index: "05",
           status: "مشروع فردي",
-          name: "MERRIER",
-          tagline: "متجر إلكتروني متكامل لبراند ستريت وير مستقل — تصفح وتسوّق وأكمل طلبك في تجربة واحدة سلسة.",
+          name: "AI Fitness & Nutrition Coaching Platform",
+          tagline: "منصة تدريب ذكية بتجمع التمارين والتغذية ومتابعة التقدم في تجربة واحدة شخصية.",
           problem:
-            "البراندات المستقلة للملابس محتاجة أكتر من مجرد صفحة هبوط — العميل بيتوقع متجر حقيقي: تصفح كوليكشن، صفحات تفاصيل منتج، سلة وwishlist شغالين فعلاً، وحسابات مستخدمين، من غير تعقيد منصات التجارة الإلكترونية التقيلة.",
+            "الناس غالبًا بتواجه صعوبة في الالتزام بخطة لياقة وتغذية ثابتة لأن التمارين والإرشادات الغذائية ومتابعة التقدم بتكون متفرقة على تطبيقات مختلفة أو بتتعمل يدويًا.",
           build:
-            "متجر إلكتروني مبني بـ Next.js لبراند MERRIER، براند ستريت وير مستقل — تجربة هبوط بصرية متحركة، كوليكشن منتجات قابل للتصفح بصفحات تفاصيل وجاليري صور، سلة وwishlist، وتسجيل دخول وإنشاء حساب، اتبنى واتنشر كموقع تجارة إلكترونية شغال فعليًا.",
-          role: "مطور متكامل، مشروع فردي — صممت وبنيت واجهة المتجر، كتالوج المنتجات، سير السلة والـwishlist والحسابات، وتوليت عملية النشر.",
+            "منصة لياقة وتغذية مدعومة بالذكاء الاصطناعي بتجمع بين تخطيط لياقة شخصي، إدارة تمارين، إرشاد غذائي، متابعة تقدم، ولوحة تحكم — بُنيت كـ MVP بمعمارية قابلة للتوسع جاهزة للربط بـbackend كامل وخدمات ذكاء اصطناعي.",
+          role: "مطور متكامل ومنتج، مشروع فردي — اشتغلت على فكرة المنتج، تجربة المستخدم، معمارية الواجهة الأمامية، سير عمل التطبيق، وهيكلة المنصة ككل.",
           value:
-            "بيوضح القدرة على تصميم وتسليم منتج تجارة إلكترونية حقيقي موجّه للمستهلك لبراند فعلي — مش متجر تجريبي، موقع شغال دلوقتي وبيستخدمه عملاء حقيقيين.",
+            "لسه MVP من غير backend حقيقي، بس المعمارية اتبنت على أساس إن الـbackend ده جاي — وده اللي ممكن أشاور عليه.",
           edge:
-            "اتبنى من الصفر لبراند ملابس حقيقي شغال فعليًا مش مجرد ديمو للبورتفوليو — هوية البراند وعرض المنتجات وتجربة التسوق كلهم اتسلموا مع بعض كمنتج واحد متكامل.",
-          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+            "بيجمع اللياقة والتغذية والتدريب بالذكاء الاصطناعي في تجربة واحدة متكاملة بدل ما يكون تطبيق تتبع تمارين تقليدي — مصمم كطبقة تدريب رقمية بتركز على التخصيص الشخصي مش بس عرض البيانات.",
+          tech: ["React", "TypeScript", "Vite", "Modern Frontend Architecture", "localStorage (MVP)", "AI-Oriented Architecture"],
           year: "2026",
-          accent: "clay",
-          liveUrl: "https://merriereg-production.up.railway.app/",
+          accent: "sky",
         },
       ],
     },
@@ -555,11 +561,11 @@ export const translations: Record<Locale, Dictionary> = {
       heading: "الأدوات اللي بتقف وراء الشغل.",
       description: "أدوات بستخدمها كتير — مختارة لأنها موثوقة، مش لأنها ترند.",
       groups: [
-        { title: "اللغات", skills: ["TypeScript", "JavaScript", "Python", "C++", "SQL"] },
-        { title: "الواجهة الأمامية", skills: ["React", "Next.js", "Tailwind CSS", "Framer Motion"] },
-        { title: "الخلفية", skills: ["Node.js", "Express", "REST APIs", "WebSockets"] },
-        { title: "البيانات والبنية التحتية", skills: ["PostgreSQL", "MongoDB", "Redis", "Docker"] },
-        { title: "الأدوات", skills: ["Git", "Figma", "Vercel", "Linux"] },
+        { title: "اللغات", skills: ["TypeScript", "Java", "SQL"] },
+        { title: "الواجهة الأمامية", skills: ["React", "Next.js", "Tailwind CSS", "Vite"] },
+        { title: "الخلفية", skills: ["Spring Boot", "Spring Security / JWT", "REST APIs", "Prisma"] },
+        { title: "البيانات والبنية التحتية", skills: ["MySQL", "PostgreSQL", "IndexedDB", "Railway"] },
+        { title: "سطح المكتب والأدوات", skills: ["Electron", "Zustand", "TanStack Query", "Git"] },
       ],
     },
     process: {
@@ -602,7 +608,7 @@ export const translations: Record<Locale, Dictionary> = {
       ],
     },
     footer: {
-      tagline: "طالب علوم حاسب وباني منتجات رقمية، بحوّل الأفكار لتجارب ويب متقنة.",
+      tagline: "مطور full-stack بابني أنظمة تشغيلية لشركات صغيرة.",
       designedBy: "تصميم وتطوير يحيى أحمد",
       rights: "جميع الحقوق محفوظة.",
     },

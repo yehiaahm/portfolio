@@ -40,12 +40,12 @@ const arabic = Cairo({
 export const metadata: Metadata = {
   title: "Yehia Ahmed — Digital Product Builder",
   description:
-    "Yehia Ahmed is a Computer Science student and digital product builder crafting modern, high-quality web experiences — where engineering precision meets thoughtful design.",
+    "Yehia Ahmed is a full-stack developer building operational software for small businesses — pharmacy e-commerce and inventory, retail storefronts, and shop management systems.",
   metadataBase: new URL("https://yehiaahmed.dev"),
   openGraph: {
     title: "Yehia Ahmed — Digital Product Builder",
     description:
-      "I build digital experiences that matter — modern websites and web applications, engineered with care.",
+      "I build the software small businesses actually run on — pharmacy systems, storefronts, and shop management tools.",
     type: "website",
   },
 };
