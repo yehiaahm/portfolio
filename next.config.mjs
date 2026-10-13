@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
-// Served from the domain root by default (Cloudflare Pages, local dev).
-// GitHub Pages hosts the site under /portfolio, so its workflow sets BASE_PATH.
+// Served from the domain root (Cloudflare Pages, local dev). Set BASE_PATH
+// only if the site is ever hosted under a sub-path.
 const basePath = process.env.BASE_PATH ?? "";
 
 const nextConfig = {
