@@ -13,6 +13,8 @@ interface RevealTextProps {
   stagger?: number;
   once?: boolean;
   viewportAmount?: number;
+  /** Above-the-fold: animate with CSS on first paint instead of waiting for hydration + scroll-in. */
+  immediate?: boolean;
 }
 
 export default function RevealText({
@@ -23,16 +25,31 @@ export default function RevealText({
   stagger = 0.045,
   once = true,
   viewportAmount = 0.4,
+  immediate = false,
 }: RevealTextProps) {
   const words = text.split(" ");
   const { ref, inView } = useInView<HTMLElement>({ amount: viewportAmount, once });
+
+  if (immediate) {
+    return (
+      <Tag ref={ref} className={clsx("flex flex-wrap", className)}>
+        {words.map((word, i) => (
+          <span key={i} className="me-[0.28em] inline-block overflow-hidden py-[0.22em] last:me-0">
+            <span className="anim-word" style={{ animationDelay: `${delay + i * stagger}s` }}>
+              {word}
+            </span>
+          </span>
+        ))}
+      </Tag>
+    );
+  }
 
   return (
     <Tag ref={ref} className={clsx("flex flex-wrap", className)}>
       {words.map((word, i) => (
         <span key={i} className="me-[0.28em] inline-block overflow-hidden py-[0.22em] last:me-0">
           <motion.span
-            className="inline-block will-change-transform"
+            className="inline-block"
             initial={{ y: "110%", rotate: 3 }}
             animate={inView ? { y: "0%", rotate: 0 } : { y: "110%", rotate: 3 }}
             transition={{

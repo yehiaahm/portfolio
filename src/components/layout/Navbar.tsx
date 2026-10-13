@@ -34,12 +34,7 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-        className="fixed inset-x-0 top-0 z-50"
-      >
+      <header className="anim-fade fixed inset-x-0 top-0 z-50">
         <div
           className={`container-px mx-auto flex max-w-content items-center justify-between transition-all duration-500 ease-premium ${
             scrolled ? "py-4" : "py-7"
@@ -95,7 +90,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {open && (

@@ -19,12 +19,13 @@ export default function CustomCursor() {
     setCanHover(mq.matches);
     if (!mq.matches) return;
 
-    const handleMove = (e: MouseEvent) => {
-      dotX.set(e.clientX);
-      dotY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+    let frame = 0;
+    let px = 0;
+    let py = 0;
 
-      const el = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+    const hitTest = () => {
+      frame = 0;
+      const el = document.elementFromPoint(px, py) as HTMLElement | null;
       const target = el?.closest<HTMLElement>("[data-cursor], a, button, [role='button']");
       if (target) {
         setIsPointer(true);
@@ -35,6 +36,15 @@ export default function CustomCursor() {
       }
     };
 
+    const handleMove = (e: MouseEvent) => {
+      px = e.clientX;
+      py = e.clientY;
+      dotX.set(px);
+      dotY.set(py);
+      if (!isVisible) setIsVisible(true);
+      if (!frame) frame = requestAnimationFrame(hitTest);
+    };
+
     const handleLeave = () => setIsVisible(false);
 
     window.addEventListener("mousemove", handleMove, { passive: true });
@@ -42,15 +52,16 @@ export default function CustomCursor() {
     return () => {
       window.removeEventListener("mousemove", handleMove);
       document.removeEventListener("mouseleave", handleLeave);
+      if (frame) cancelAnimationFrame(frame);
     };
   }, [dotX, dotY, isVisible]);
 
   if (!canHover) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100] mix-blend-difference">
+    <>
       <motion.div
-        className="absolute rounded-full bg-cream-100"
+        className="pointer-events-none fixed z-[100] rounded-full bg-cream-100 mix-blend-difference"
         style={{
           left: dotX,
           top: dotY,
@@ -63,7 +74,7 @@ export default function CustomCursor() {
         transition={{ duration: 0.2 }}
       />
       <motion.div
-        className="absolute flex items-center justify-center rounded-full border border-cream-100"
+        className="pointer-events-none fixed z-[100] flex items-center justify-center rounded-full border border-cream-100 mix-blend-difference"
         style={{
           left: ringX,
           top: ringY,
@@ -87,6 +98,6 @@ export default function CustomCursor() {
           </motion.span>
         )}
       </motion.div>
-    </div>
+    </>
   );
 }

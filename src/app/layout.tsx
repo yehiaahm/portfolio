@@ -14,7 +14,7 @@ const display = Bricolage_Grotesque({
 const serif = Instrument_Serif({
   subsets: ["latin"],
   weight: ["400"],
-  style: ["italic", "normal"],
+  style: ["italic"],
   variable: "--font-serif",
   display: "swap",
 });
@@ -35,6 +35,7 @@ const arabic = Cairo({
   subsets: ["arabic"],
   variable: "--font-arabic",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
