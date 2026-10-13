@@ -69,6 +69,7 @@ export default function RootLayout({
     <html
       lang="en"
       dir="ltr"
+      suppressHydrationWarning
       className={`${display.variable} ${serif.variable} ${sans.variable} ${mono.variable} ${arabic.variable}`}
     >
       <head>

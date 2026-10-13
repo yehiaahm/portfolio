@@ -130,7 +130,7 @@ export default function Hero({ hasPortrait }: { hasPortrait: boolean }) {
         transition={{ duration: 1, delay: 2.1 }}
         className="mt-10 flex justify-center"
       >
-        <a href="#about" data-cursor="Scroll" className="flex flex-col items-center gap-2 text-ink-50">
+        <a href="#work" data-cursor="Scroll" className="flex flex-col items-center gap-2 text-ink-50">
           <span className="font-mono text-[10px] uppercase tracking-widest2">{t.hero.scroll}</span>
           <motion.span
             animate={{ y: [0, 8, 0] }}

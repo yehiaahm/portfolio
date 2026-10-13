@@ -18,8 +18,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero hasPortrait={hasPortrait} />
-        <About />
         <SelectedWork />
+        <About />
         <Capabilities />
         <Skills />
         <Process />

@@ -2,19 +2,12 @@ export type Locale = "en" | "ar";
 
 export interface Project {
   index: string;
-  status: string;
   name: string;
   tagline: string;
-  problem: string;
-  build: string;
-  role: string;
-  value: string;
-  edge: string;
   tech: string[];
   year: string;
   accent: "clay" | "sage" | "gold" | "sky";
   liveUrl?: string;
-  result?: string;
 }
 
 export interface Dictionary {
@@ -56,13 +49,9 @@ export interface Dictionary {
     label: string;
     heading: string;
     description: string;
-    problemLabel: string;
-    builtLabel: string;
-    roleLabel: string;
-    edgeLabel: string;
-    resultLabel: string;
     moreLabel: string;
-    ctaDiscuss: string;
+    liveLabel: string;
+    playLabel: string;
     ctaLive: string;
     projects: Project[];
   };
@@ -143,7 +132,7 @@ export const translations: Record<Locale, Dictionary> = {
       badgeFullStack: "Full-Stack",
     },
     about: {
-      index: "02",
+      index: "03",
       label: "About",
       heading1: "I care about the details most people scroll past — ",
       heading2: "the ones that make something feel finished.",
@@ -160,119 +149,63 @@ export const translations: Record<Locale, Dictionary> = {
       ],
     },
     work: {
-      index: "03",
+      index: "02",
       label: "Selected Work",
       heading: "Products, not just projects.",
-      description:
-        "A closer look at what I've built end-to-end — the problem behind each one, the decisions I made, and why it matters.",
-      problemLabel: "The Problem",
-      builtLabel: "What I Built",
-      roleLabel: "My Role",
-      edgeLabel: "What Makes It Different",
-      resultLabel: "Result",
+      description: "Solo builds — designed, built, and shipped end-to-end.",
       moreLabel: "More Work",
-      ctaDiscuss: "Discuss a project like this",
-      ctaLive: "View Live Site",
+      liveLabel: "Live",
+      playLabel: "Play demo",
+      ctaLive: "Visit Live Site",
       projects: [
         {
           index: "01",
-          status: "Individual Project",
           name: "Pharmacy E-commerce & ERP",
-          tagline:
-            "A full-stack platform where customers shop and pharmacies run their entire operation — in one system.",
-          problem:
-            "Pharmacies need to combine an easy customer shopping experience with precise control over inventory, pricing, and orders. Running e-commerce and internal operations as separate systems makes the data hard to track and keep in sync.",
-          build:
-            "A full-stack pharmacy platform combining a customer-facing storefront with a branch-level ERP — product catalog, search and variants, cart and orders, inventory and stock tracking with batch and expiry-date management, pricing, authentication, and admin tooling, with offline caching via IndexedDB.",
-          role:
-            "Full-stack developer, solo project — built the frontend, backend, database, deployment, and the integration between them.",
-          value:
-            "The part that took the most care wasn't the storefront — it was getting batch numbers and expiry dates right, the detail that turns a demo into something a pharmacy could actually run on.",
-          edge:
-            "Combines customer experience, pharmacy operations, and inventory management in one system — with real batch and expiry-date tracking that makes it closer to production-grade software than an academic exercise.",
-          tech: ["React 19", "TypeScript", "Spring Boot 3", "Java 21", "MySQL", "Spring Security / JWT", "TanStack Query", "IndexedDB"],
+          tagline: "Online storefront and branch-level ERP in one system — with batch and expiry tracking.",
+          tech: ["React 19", "TypeScript", "Spring Boot 3", "Java 21", "MySQL"],
           year: "2025",
           accent: "sage",
           liveUrl: "https://dahmed-production.up.railway.app/",
-          result: "Live and deployed.",
         },
         {
           index: "02",
-          status: "Individual Project",
           name: "MERRIER",
-          tagline:
-            "A full storefront for an independent streetwear label — browse, shop, and check out in one seamless experience.",
-          problem:
-            "Independent clothing labels need more than a landing page — customers expect a real storefront: a browsable collection, product detail pages, a working cart and wishlist, and accounts, without the overhead of a heavyweight e-commerce platform.",
-          build:
-            "A custom Next.js storefront for MERRIER, an independent streetwear label — an animated landing experience, a browsable product collection with detail pages and image galleries, cart and wishlist, and account creation and sign-in, built and shipped as a live e-commerce site.",
-          role:
-            "Full-stack developer, solo project — designed and built the storefront frontend, product catalog, cart/wishlist and account flows, and handled deployment.",
-          value:
-            "It's live, it's used by real customers, and that changes how you build — every edge case in the cart and checkout flow actually gets hit.",
-          edge:
-            "Built from scratch for a real, currently operating clothing brand rather than a portfolio-only demo — brand identity, product presentation, and the full shopping flow all shipped together as one cohesive product.",
-          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+          tagline: "A live storefront for an independent streetwear label.",
+          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Railway"],
           year: "2026",
           accent: "clay",
           liveUrl: "https://merriereg-production.up.railway.app/",
-          result: "Live today — used by real customers.",
         },
         {
           index: "03",
-          status: "Individual Project",
           name: "AnimaSys",
-          tagline:
-            "An AI-powered ERP for pet shops — packaged as a standalone desktop app with its own embedded database.",
-          problem:
-            "Pet shops need to manage daily sales, inventory, cash flow, grooming services, employees, and permissions in one place — and traditional systems make it hard for owners to quickly see what's selling, what needs attention, and where the business is underperforming.",
-          build:
-            "An internal ERP for pet shops covering daily revenue and cashier transactions, inventory with QR/barcode scanning, grooming services, and role-based permissions — layered with AI-powered business insights and an AI chat companion, packaged as a standalone Windows desktop application.",
-          role:
-            "Full-stack developer, solo project — designed the system architecture, frontend, business workflows, AI features, desktop packaging, and the deployment/installation flow.",
-          value:
-            "Packaging it as a real desktop installer — embedded database included — was harder than any of the AI features, and probably matters more.",
-          edge:
-            "Packaged as a standalone Windows desktop app with a fully embedded backend and database (portable JRE + MySQL), plus an AI chat companion that explains the business data instead of just displaying it.",
-          tech: ["React", "TypeScript", "Electron", "Spring Boot", "Java", "MySQL", "Zustand", "Inno Setup"],
+          tagline: "AI-powered ERP for pet shops, shipped as a standalone Windows app.",
+          tech: ["React", "TypeScript", "Electron", "Spring Boot", "MySQL"],
           year: "2026",
           accent: "gold",
         },
         {
           index: "04",
-          status: "Individual Project",
+          name: "VOID",
+          tagline: "A bilingual storefront for an Egyptian streetwear label, built around limited drops.",
+          tech: ["React", "React Router", "TanStack Query", "Railway"],
+          year: "2026",
+          accent: "sky",
+          liveUrl: "https://voideg-production.up.railway.app/en",
+        },
+        {
+          index: "05",
           name: "PetMate",
-          tagline: "A matchmaking platform that turns pet breeding into a structured, discoverable experience.",
-          problem:
-            "Pet owners struggle to find suitable breeding matches for their pets in an organized way, usually relying on scattered, informal communication instead of structured discovery.",
-          build:
-            "A web platform that connects pet owners and helps them discover suitable breeding matches — structured pet profiles, a discovery and matching workflow, and a modern, responsive interface built around finding the right match rather than browsing at random.",
-          role: "Full-stack developer, solo project — designed and built the frontend, backend, and database from scratch.",
-          value:
-            "Once discovery and matching were built to work together instead of as separate features, it stopped feeling like another CRUD app.",
-          edge:
-            "Built around structured discovery and matching rather than generic profile browsing — profiles, discovery, and matching work together as one coherent product experience.",
-          tech: ["React", "TypeScript", "Vite", "Prisma", "PostgreSQL", "Tailwind CSS"],
+          tagline: "Structured breeding-match discovery for pet owners.",
+          tech: ["React", "TypeScript", "Prisma", "PostgreSQL"],
           year: "2024",
           accent: "clay",
         },
         {
-          index: "05",
-          status: "Individual Project",
+          index: "06",
           name: "AI Fitness & Nutrition Coaching Platform",
-          tagline:
-            "A unified AI coaching platform that brings workouts, nutrition, and progress tracking into one personalized experience.",
-          problem:
-            "People often struggle to follow a consistent fitness and nutrition plan because workout routines, nutrition guidance, and progress tracking are usually spread across different apps or handled manually.",
-          build:
-            "An AI-powered fitness and nutrition coaching platform bringing together personalized fitness planning, workout management, nutrition guidance, progress tracking, and a dashboard — built as an MVP with a scalable architecture ready to connect to a full backend and AI services.",
-          role:
-            "Full-stack / product developer, solo project — worked on the product concept, user experience, frontend architecture, application workflows, and the overall platform structure.",
-          value:
-            "Still an MVP with no backend behind it yet, but the architecture was built assuming a real one is coming — that's the part I'd point to.",
-          edge:
-            "Combines fitness, nutrition, and AI coaching into one unified experience instead of another basic workout tracker — designed as a digital coaching layer focused on personalization, not just data display.",
-          tech: ["React", "TypeScript", "Vite", "Modern Frontend Architecture", "localStorage (MVP)", "AI-Oriented Architecture"],
+          tagline: "Workouts, nutrition, and progress tracking in one AI coaching MVP.",
+          tech: ["React", "TypeScript", "Vite"],
           year: "2026",
           accent: "sky",
         },
@@ -405,7 +338,7 @@ export const translations: Record<Locale, Dictionary> = {
       badgeFullStack: "مطور متكامل",
     },
     about: {
-      index: "02",
+      index: "03",
       label: "نبذة عني",
       heading1: "بهتم بالتفاصيل اللي أغلب الناس بيتخطوها — ",
       heading2: "اللي بتخلي أي حاجة تحس إنها متقنة فعلاً.",
@@ -422,110 +355,63 @@ export const translations: Record<Locale, Dictionary> = {
       ],
     },
     work: {
-      index: "03",
+      index: "02",
       label: "أعمال مختارة",
       heading: "منتجات، مش مجرد مشاريع.",
-      description: "نظرة أقرب على اللي بنيته من الألف للياء — المشكلة اللي وراء كل مشروع، القرارات اللي اتخذتها، وليه ده مهم.",
-      problemLabel: "المشكلة",
-      builtLabel: "إيه اللي بنيته",
-      roleLabel: "دوري",
-      edgeLabel: "إيه اللي يميزه",
-      resultLabel: "النتيجة",
+      description: "مشاريع فردية — صممتها وبنيتها ونشرتها من الألف للياء.",
       moreLabel: "أعمال إضافية",
-      ctaDiscuss: "نتكلم عن مشروع زي ده",
+      liveLabel: "لايف",
+      playLabel: "شغّل الديمو",
       ctaLive: "شوف الموقع لايف",
       projects: [
         {
           index: "01",
-          status: "مشروع فردي",
           name: "Pharmacy E-commerce & ERP",
-          tagline: "منصة متكاملة العميل بيشتري من خلالها والصيدلية بتدير كل عملياتها — في نظام واحد.",
-          problem:
-            "الصيدليات محتاجة تجمع بين تجربة شراء سهلة للعملاء وإدارة دقيقة للمخزون والأسعار والطلبات. وجود نظام منفصل للتجارة الإلكترونية وواحد للإدارة الداخلية بيعقّد الأمور وبيصعّب متابعة البيانات.",
-          build:
-            "منصة صيدلية متكاملة بتجمع بين واجهة تسوق للعملاء ونظام ERP على مستوى الفروع — كتالوج منتجات، بحث ومتغيرات، سلة وطلبات، إدارة مخزون وتتبع كميات مع الدفعات وتواريخ الصلاحية، تسعير، مصادقة، وأدوات إدارية، مع تخزين مؤقت أوفلاين عبر IndexedDB.",
-          role: "مطور متكامل، مشروع فردي — بنيت الواجهة الأمامية والخلفية وقاعدة البيانات والنشر والربط بينهم.",
-          value:
-            "الجزء اللي اخد مجهود أكتر مكنش واجهة المتجر — كان إني أظبط أرقام الدفعات وتواريخ الصلاحية صح، التفصيلة اللي بتفرق بين مشروع تجريبي وحاجة صيدلية تقدر تشتغل بيها فعلاً.",
-          edge:
-            "بيجمع بين تجربة العميل وعمليات الصيدلية وإدارة المخزون في نظام واحد — مع تتبع حقيقي للدفعات وتواريخ الصلاحية بيخليه أقرب لبرنامج جاهز للاستخدام الفعلي مش مجرد مشروع أكاديمي.",
-          tech: ["React 19", "TypeScript", "Spring Boot 3", "Java 21", "MySQL", "Spring Security / JWT", "TanStack Query", "IndexedDB"],
+          tagline: "متجر إلكتروني ونظام ERP للفروع في نظام واحد — مع تتبع الدفعات وتواريخ الصلاحية.",
+          tech: ["React 19", "TypeScript", "Spring Boot 3", "Java 21", "MySQL"],
           year: "2025",
           accent: "sage",
           liveUrl: "https://dahmed-production.up.railway.app/",
-          result: "شغال ومنشور فعليًا.",
         },
         {
           index: "02",
-          status: "مشروع فردي",
           name: "MERRIER",
-          tagline: "متجر إلكتروني متكامل لبراند ستريت وير مستقل — تصفح وتسوّق وأكمل طلبك في تجربة واحدة سلسة.",
-          problem:
-            "البراندات المستقلة للملابس محتاجة أكتر من مجرد صفحة هبوط — العميل بيتوقع متجر حقيقي: تصفح كوليكشن، صفحات تفاصيل منتج، سلة وwishlist شغالين فعلاً، وحسابات مستخدمين، من غير تعقيد منصات التجارة الإلكترونية التقيلة.",
-          build:
-            "متجر إلكتروني مبني بـ Next.js لبراند MERRIER، براند ستريت وير مستقل — تجربة هبوط بصرية متحركة، كوليكشن منتجات قابل للتصفح بصفحات تفاصيل وجاليري صور، سلة وwishlist، وتسجيل دخول وإنشاء حساب، اتبنى واتنشر كموقع تجارة إلكترونية شغال فعليًا.",
-          role: "مطور متكامل، مشروع فردي — صممت وبنيت واجهة المتجر، كتالوج المنتجات، سير السلة والـwishlist والحسابات، وتوليت عملية النشر.",
-          value:
-            "الموقع شغال فعليًا وبيستخدمه عملاء حقيقيين، وده بيغير طريقة البناء — كل حالة استثنائية في السلة والـcheckout بتتواجه فعلاً مش نظريًا.",
-          edge:
-            "اتبنى من الصفر لبراند ملابس حقيقي شغال فعليًا مش مجرد ديمو للبورتفوليو — هوية البراند وعرض المنتجات وتجربة التسوق كلهم اتسلموا مع بعض كمنتج واحد متكامل.",
-          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Turbopack", "Railway"],
+          tagline: "متجر إلكتروني شغال لبراند ستريت وير مستقل.",
+          tech: ["Next.js", "TypeScript", "Tailwind CSS", "Railway"],
           year: "2026",
           accent: "clay",
           liveUrl: "https://merriereg-production.up.railway.app/",
-          result: "شغال دلوقتي — وبيستخدمه عملاء حقيقيين.",
         },
         {
           index: "03",
-          status: "مشروع فردي",
           name: "AnimaSys",
-          tagline: "نظام ERP مدعوم بالذكاء الاصطناعي لمحلات الحيوانات الأليفة — متجهز كتطبيق سطح مكتب مستقل بقاعدة بياناته الخاصة.",
-          problem:
-            "محلات الحيوانات الأليفة محتاجة تدير المبيعات اليومية والمخزون والتدفق النقدي وخدمات العناية والموظفين والصلاحيات في مكان واحد — والأنظمة التقليدية بتصعّب على أصحاب المحلات إنهم يعرفوا بسرعة إيه اللي بيتباع، وإيه اللي محتاج اهتمام، وفين الأداء ضعيف.",
-          build:
-            "نظام ERP داخلي لمحلات الحيوانات الأليفة بيغطي الإيرادات اليومية ومعاملات الكاشير، إدارة المخزون بالمسح بالباركود/QR، خدمات العناية، والصلاحيات حسب الدور — مع طبقة رؤى ذكاء اصطناعي ومساعد محادثة ذكي، ومتجهز كتطبيق ويندوز مستقل.",
-          role: "مطور متكامل، مشروع فردي — صممت معمارية النظام والواجهة الأمامية وسير العمل التجاري وميزات الذكاء الاصطناعي وتجهيز نسخة سطح المكتب وعملية النشر والتثبيت.",
-          value:
-            "تجهيزه كتطبيق سطح مكتب حقيقي بقاعدة بيانات مدمجة كان أصعب من أي ميزة ذكاء اصطناعي فيه — وممكن يكون ده اللي بيفرق أكتر.",
-          edge:
-            "متجهز كتطبيق ويندوز مستقل بخلفية وقاعدة بيانات مدمجة بالكامل (JRE محمول + MySQL)، مع مساعد محادثة ذكاء اصطناعي بيشرح بيانات العمل بدل ما يعرضها بس.",
-          tech: ["React", "TypeScript", "Electron", "Spring Boot", "Java", "MySQL", "Zustand", "Inno Setup"],
+          tagline: "نظام ERP لمحلات الحيوانات الأليفة مدعوم بالذكاء الاصطناعي — كتطبيق ويندوز مستقل.",
+          tech: ["React", "TypeScript", "Electron", "Spring Boot", "MySQL"],
           year: "2026",
           accent: "gold",
         },
         {
           index: "04",
-          status: "مشروع فردي",
+          name: "VOID",
+          tagline: "متجر ستريت وير مصري بلغتين، مبني حوالين الـ drops المحدودة.",
+          tech: ["React", "React Router", "TanStack Query", "Railway"],
+          year: "2026",
+          accent: "sky",
+          liveUrl: "https://voideg-production.up.railway.app/en",
+        },
+        {
+          index: "05",
           name: "PetMate",
-          tagline: "منصة تعارف بتحوّل تزاوج الحيوانات الأليفة لتجربة منظمة وسهلة الاكتشاف.",
-          problem:
-            "أصحاب الحيوانات الأليفة بيواجهوا صعوبة في إيجاد حيوانات مناسبة للتزاوج بطريقة منظمة، وغالبًا بيعتمدوا على تواصل عشوائي بدل الاكتشاف المنظم.",
-          build:
-            "منصة ويب بتربط أصحاب الحيوانات الأليفة وتساعدهم يكتشفوا حيوانات مناسبة للتزاوج — بروفايلات منظمة، آلية اكتشاف ومطابقة، وواجهة عصرية متجاوبة مبنية حول إيجاد المطابقة الصح مش التصفح العشوائي.",
-          role: "مطور متكامل، مشروع فردي — صممت وبنيت الواجهة الأمامية والخلفية وقاعدة البيانات من الصفر.",
-          value:
-            "لما الاكتشاف والمطابقة اشتغلوا مع بعض بدل ما يكونوا ميزتين منفصلتين، المنصة بطلت تحس إنها تطبيق CRUD تاني.",
-          edge:
-            "مبني حول الاكتشاف والمطابقة المنظمة بدل التصفح العشوائي للبروفايلات — البروفايلات والاكتشاف والمطابقة بتشتغل مع بعض كتجربة منتج واحدة متكاملة.",
-          tech: ["React", "TypeScript", "Vite", "Prisma", "PostgreSQL", "Tailwind CSS"],
+          tagline: "منصة بتساعد أصحاب الحيوانات الأليفة يلاقوا شريك التزاوج المناسب بشكل منظم.",
+          tech: ["React", "TypeScript", "Prisma", "PostgreSQL"],
           year: "2024",
           accent: "clay",
         },
         {
-          index: "05",
-          status: "مشروع فردي",
+          index: "06",
           name: "AI Fitness & Nutrition Coaching Platform",
-          tagline: "منصة تدريب ذكية بتجمع التمارين والتغذية ومتابعة التقدم في تجربة واحدة شخصية.",
-          problem:
-            "الناس غالبًا بتواجه صعوبة في الالتزام بخطة لياقة وتغذية ثابتة لأن التمارين والإرشادات الغذائية ومتابعة التقدم بتكون متفرقة على تطبيقات مختلفة أو بتتعمل يدويًا.",
-          build:
-            "منصة لياقة وتغذية مدعومة بالذكاء الاصطناعي بتجمع بين تخطيط لياقة شخصي، إدارة تمارين، إرشاد غذائي، متابعة تقدم، ولوحة تحكم — بُنيت كـ MVP بمعمارية قابلة للتوسع جاهزة للربط بـbackend كامل وخدمات ذكاء اصطناعي.",
-          role: "مطور متكامل ومنتج، مشروع فردي — اشتغلت على فكرة المنتج، تجربة المستخدم، معمارية الواجهة الأمامية، سير عمل التطبيق، وهيكلة المنصة ككل.",
-          value:
-            "لسه MVP من غير backend حقيقي، بس المعمارية اتبنت على أساس إن الـbackend ده جاي — وده اللي ممكن أشاور عليه.",
-          edge:
-            "بيجمع اللياقة والتغذية والتدريب بالذكاء الاصطناعي في تجربة واحدة متكاملة بدل ما يكون تطبيق تتبع تمارين تقليدي — مصمم كطبقة تدريب رقمية بتركز على التخصيص الشخصي مش بس عرض البيانات.",
-          tech: ["React", "TypeScript", "Vite", "Modern Frontend Architecture", "localStorage (MVP)", "AI-Oriented Architecture"],
+          tagline: "التمارين والتغذية ومتابعة التقدم في MVP واحد للتدريب الذكي.",
+          tech: ["React", "TypeScript", "Vite"],
           year: "2026",
           accent: "sky",
         },

@@ -13,7 +13,7 @@ export default function SelectedWork() {
   const secondary = t.work.projects.slice(FEATURED_COUNT);
 
   return (
-    <section id="work" className="bg-cream-200/60 py-28 sm:py-36">
+    <section id="work" className="bg-cream-200/60 py-24 sm:py-32">
       <div className="container-px mx-auto max-w-content">
         <SectionHeading
           index={t.work.index}
@@ -22,23 +22,23 @@ export default function SelectedWork() {
           description={t.work.description}
         />
 
-        <div className="mt-4 divide-y divide-ink/10">
-          {featured.map((project, i) => (
-            <ProjectCard key={project.name} project={project} reverse={i % 2 === 1} />
+        <div className="mt-16 flex flex-col gap-24 sm:mt-20 sm:gap-32">
+          {featured.map((project) => (
+            <ProjectCard key={project.name} project={project} />
           ))}
         </div>
 
         {secondary.length > 0 && (
           <>
             <FadeIn amount={0.8}>
-              <div className="mt-4 flex items-center gap-3 border-t border-ink/10 pt-12 font-mono text-xs uppercase tracking-widest2 text-clay-400">
+              <div className="mt-24 flex items-center gap-3 border-t border-ink/10 pt-12 font-mono text-xs uppercase tracking-widest2 text-clay-400 sm:mt-32">
                 <span className="h-px w-8 bg-clay-300/60" />
                 <span>{t.work.moreLabel}</span>
               </div>
             </FadeIn>
-            <div className="divide-y divide-ink/10">
+            <div className="mt-10 grid gap-16 md:grid-cols-2 md:gap-10 xl:grid-cols-3">
               {secondary.map((project, i) => (
-                <ProjectCard key={project.name} project={project} reverse={i % 2 === 1} compact />
+                <ProjectCard key={project.name} project={project} compact delay={i * 0.1} />
               ))}
             </div>
           </>
