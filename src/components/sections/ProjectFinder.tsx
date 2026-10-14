@@ -13,6 +13,7 @@ import {
   CalendarDays,
   CalendarRange,
   CircleHelp,
+  ClipboardList,
   Coffee,
   CreditCard,
   Dumbbell,
@@ -20,6 +21,7 @@ import {
   Languages,
   Layers,
   LayoutDashboard,
+  LayoutGrid,
   Monitor,
   Pill,
   Receipt,
@@ -41,25 +43,21 @@ import MagneticButton from "@/components/ui/MagneticButton";
 import { thumbnailFor } from "@/components/sections/ProjectPreview";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import {
-  budgetSuggestions,
   businesses,
   deadlines,
-  type Budget,
   type BusinessId,
   type DeadlineId,
   type FeatureId,
   type KindId,
 } from "@/lib/finder/config";
 import { defaultFeatures, featuresFor } from "@/lib/finder/estimate";
-import { formatNumber } from "@/lib/finder/format";
 
-type Step = EditableStep | "match" | "result";
+type Step = EditableStep | "choice" | "match" | "result";
 
-const STEPS: Step[] = ["business", "match", "kind", "features", "budget", "deadline", "result"];
-const QUESTIONS: Step[] = ["business", "kind", "features", "budget", "deadline"];
+const STEPS: Step[] = ["choice", "business", "match", "kind", "features", "deadline", "result"];
+const QUESTIONS: Step[] = ["business", "kind", "features", "deadline"];
 
 const BUSINESS_IDS = Object.keys(businesses) as BusinessId[];
-const DEADLINE_IDS = Object.keys(deadlines) as DeadlineId[];
 const KIND_IDS: KindId[] = ["website", "system", "both"];
 
 const businessIcons: Record<BusinessId, LucideIcon> = {
@@ -118,12 +116,10 @@ export default function ProjectFinder() {
   const { t } = useLanguage();
   const f = t.finder;
 
-  const [step, setStep] = useState<Step>("business");
+  const [step, setStep] = useState<Step>("choice");
   const [business, setBusiness] = useState<BusinessId>("other");
   const [kind, setKind] = useState<KindId>("website");
   const [features, setFeatures] = useState<FeatureId[]>([]);
-  const [budget, setBudget] = useState<Budget | null>(null);
-  const [budgetText, setBudgetText] = useState("");
   const [deadline, setDeadline] = useState<DeadlineId | null>(null);
 
   const topRef = useRef<HTMLDivElement>(null);
@@ -167,10 +163,8 @@ export default function ProjectFinder() {
     setFeatures((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   const restart = () => {
-    setStep("business");
+    setStep("choice");
     setFeatures([]);
-    setBudget(null);
-    setBudgetText("");
     setDeadline(null);
   };
 
@@ -178,8 +172,35 @@ export default function ProjectFinder() {
   const progress = (STEPS.indexOf(step) / (STEPS.length - 1)) * 100;
   const recommended = businesses[business].kind;
 
+  const showProjects = () => {
+    const el = document.getElementById("work");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   let body: ReactNode;
   switch (step) {
+    case "choice":
+      body = (
+        <>
+          <StepHeading {...f.choice} />
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4">
+            <OptionCard
+              icon={LayoutGrid}
+              title={f.choice.projects.title}
+              desc={f.choice.projects.desc}
+              onClick={showProjects}
+            />
+            <OptionCard
+              icon={ClipboardList}
+              title={f.choice.assess.title}
+              desc={f.choice.assess.desc}
+              onClick={() => setStep("business")}
+            />
+          </div>
+        </>
+      );
+      break;
+
     case "business":
       body = (
         <>
@@ -291,7 +312,7 @@ export default function ProjectFinder() {
           </div>
           <div className="mt-10">
             <MagneticButton>
-              <button type="button" onClick={() => setStep("budget")} data-cursor="Go" className={primaryButton}>
+              <button type="button" onClick={() => setStep("deadline")} data-cursor="Go" className={primaryButton}>
                 {f.next}
                 <ArrowRight size={14} className="rtl:rotate-180" />
               </button>
@@ -301,92 +322,12 @@ export default function ProjectFinder() {
       );
       break;
 
-    case "budget": {
-      const amount = Number(budgetText);
-      const submit = (value: Budget) => {
-        setBudget(value);
-        setStep("deadline");
-      };
-      body = (
-        <>
-          <StepHeading {...f.budget} />
-          <form
-            className="mt-10 max-w-xl"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (amount > 0) submit(amount);
-            }}
-          >
-            <label className="flex items-center gap-3 rounded-2xl border border-ink/15 bg-cream-50 px-5 py-4 transition-colors duration-300 focus-within:border-clay-300 sm:px-6 sm:py-5">
-              <input
-                autoFocus
-                dir="ltr"
-                inputMode="numeric"
-                value={budgetText ? formatNumber(Number(budgetText)) : ""}
-                onChange={(e) => {
-                  const digits = e.target.value
-                    .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x660))
-                    .replace(/\D/g, "")
-                    .slice(0, 9);
-                  setBudgetText(digits);
-                }}
-                placeholder={f.budget.placeholder}
-                aria-label={f.budget.heading + " " + f.budget.accent}
-                className="min-w-0 flex-1 bg-transparent font-display text-3xl font-medium text-ink outline-none placeholder:text-ink-50/40 sm:text-4xl"
-              />
-              <span className="font-mono text-sm uppercase tracking-widest2 text-ink-50">{f.budget.currency}</span>
-            </label>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {budgetSuggestions.map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  onClick={() => setBudgetText(String(n))}
-                  className={
-                    "rounded-full border px-4 py-2 font-mono text-xs tracking-wide transition-colors duration-300 " +
-                    (amount === n
-                      ? "border-clay-300 bg-clay-300 text-cream-50"
-                      : "border-ink/15 text-ink-50 hover:border-ink/40 hover:text-ink")
-                  }
-                >
-                  {formatNumber(n)}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <MagneticButton>
-                <button
-                  type="submit"
-                  disabled={!(amount > 0)}
-                  data-cursor="Go"
-                  className={primaryButton + " disabled:pointer-events-none disabled:opacity-40"}
-                >
-                  {f.next}
-                  <ArrowRight size={14} className="rtl:rotate-180" />
-                </button>
-              </MagneticButton>
-              <button
-                type="button"
-                onClick={() => submit("unsure")}
-                className="font-mono text-xs uppercase tracking-widest2 text-ink-50 underline-offset-4 transition-colors duration-300 hover:text-ink hover:underline"
-              >
-                {f.budget.unsure}
-              </button>
-            </div>
-          </form>
-        </>
-      );
-      break;
-    }
-
     case "deadline":
       body = (
         <>
           <StepHeading {...f.deadline} />
           <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            {DEADLINE_IDS.map((id) => (
+            {deadlines.map((id) => (
               <OptionCard
                 key={id}
                 icon={deadlineIcons[id]}
@@ -409,12 +350,11 @@ export default function ProjectFinder() {
         <>
           <StepHeading {...f.result} />
           <div className="mt-10">
-            {budget && deadline && (
+            {deadline && (
               <FinderResult
                 business={business}
                 kind={kind}
                 features={features}
-                budget={budget}
                 deadline={deadline}
                 onEdit={setStep}
                 onRestart={restart}
@@ -441,7 +381,7 @@ export default function ProjectFinder() {
         </div>
 
         <div ref={topRef} className="mb-10 mt-8 flex h-9 scroll-mt-28 items-center gap-4 sm:mb-12">
-          {step !== "business" && (
+          {step !== "choice" && (
             <button
               type="button"
               onClick={back}

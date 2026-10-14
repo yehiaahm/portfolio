@@ -14,7 +14,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 const STORAGE_KEY = "portfolio-locale";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
+  const [locale, setLocale] = useState<Locale>("ar");
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
@@ -30,7 +30,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const toggleLocale = () => {
     setLocale((prev) => {
-      const next = prev === "en" ? "ar" : "en";
+      const next = prev === "ar" ? "en" : "ar";
       window.localStorage.setItem(STORAGE_KEY, next);
       return next;
     });

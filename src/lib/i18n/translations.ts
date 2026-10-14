@@ -1,4 +1,4 @@
-import type { BusinessId, DeadlineId, FeatureId, KindId, Range } from "@/lib/finder/config";
+import type { BusinessId, DeadlineId, FeatureId, KindId } from "@/lib/finder/config";
 
 export type Locale = "en" | "ar";
 
@@ -42,33 +42,26 @@ export interface Dictionary {
     back: string;
     skip: string;
     next: string;
+    choice: StepCopy & { projects: OptionCopy; assess: OptionCopy };
     business: StepCopy & { options: Record<BusinessId, OptionCopy> };
     match: StepCopy & { cta: string };
     kind: StepCopy & { recommended: string; notSure: OptionCopy; options: Record<KindId, OptionCopy> };
     features: StepCopy & { options: Record<FeatureId, OptionCopy> };
-    budget: StepCopy & { currency: string; placeholder: string; unsure: string };
     deadline: StepCopy & { options: Record<DeadlineId, OptionCopy> };
     result: StepCopy & {
-      cost: string;
-      timeline: string;
-      weeks: (n: number | Range) => string;
+      summary: string;
       included: string;
       includes: Record<KindId, string[]>;
-      disclaimer: string;
-      budgetFit: Record<"unsure" | "fits" | "close" | "phased" | "below", string>;
-      phaseNow: string;
-      phaseLater: string;
-      deadlineFit: Record<"flexible" | "fits" | "tight" | "phased", string>;
+      note: string;
       answers: string;
       edit: string;
-      labels: { business: string; kind: string; features: string; budget: string; deadline: string };
+      labels: { business: string; kind: string; features: string; deadline: string };
       none: string;
       whatsapp: string;
       whatsappHint: string;
       email: string;
       startOver: string;
       greeting: string;
-      estimateLine: string;
       emailSubject: string;
     };
   };
@@ -130,21 +123,6 @@ export interface Dictionary {
 
 const email = "yehiaahmed195200@gmail.com";
 
-const toRange = (n: number | Range): Range => (typeof n === "number" ? [n, n] : n);
-const rangeText = ([lo, hi]: Range) => (lo === hi ? `${lo}` : `${lo}–${hi}`);
-
-const weeksEn = (n: number | Range) => {
-  const r = toRange(n);
-  return `${rangeText(r)} ${r[1] === 1 ? "week" : "weeks"}`;
-};
-
-const weeksAr = (n: number | Range) => {
-  const r = toRange(n);
-  if (r[0] === r[1] && r[1] === 1) return "أسبوع";
-  if (r[0] === r[1] && r[1] === 2) return "أسبوعين";
-  return `${rangeText(r)} ${r[1] <= 10 ? "أسابيع" : "أسبوع"}`;
-};
-
 const socialsBase = [
   { key: "github", label: "GitHub", href: "https://github.com/yehiaahm" },
   { key: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/yahya-ahmed-035054325" },
@@ -162,7 +140,7 @@ export const translations: Record<Locale, Dictionary> = {
       capabilities: "Capabilities",
       process: "Process",
       contact: "Contact",
-      quote: "Get a Quote",
+      quote: "Start the Assessment",
     },
     finder: {
       eyebrow: "Yehia Ahmed — taking new projects",
@@ -170,10 +148,17 @@ export const translations: Record<Locale, Dictionary> = {
       back: "Back",
       skip: "Just show me all the work",
       next: "Continue",
+      choice: {
+        heading: "Where would you",
+        accent: "like to start?",
+        sub: "Browse the work first, or tell me about your project in a minute.",
+        projects: { title: "See the projects", desc: "Real products I built — open them and try them live" },
+        assess: { title: "Start the assessment", desc: "A few quick questions about your project — under a minute" },
+      },
       business: {
         heading: "What kind of business",
         accent: "do you run?",
-        sub: "Pick one — I'll show you work I've built that's close to it, then a price estimate. Takes under a minute.",
+        sub: "Pick one — I'll show you work I've built that's close to it, then ask a few quick questions about your project.",
         options: {
           pharmacy: { title: "Pharmacy or clinic", desc: "Orders, stock, expiry dates" },
           fashion: { title: "Clothing brand", desc: "An online store for your products" },
@@ -187,7 +172,7 @@ export const translations: Record<Locale, Dictionary> = {
         heading: "Something close to",
         accent: "what you need.",
         sub: "Real projects I designed and built myself — open them and try them live.",
-        cta: "Get my estimate",
+        cta: "Continue the assessment",
       },
       kind: {
         heading: "Website, system,",
@@ -220,14 +205,6 @@ export const translations: Record<Locale, Dictionary> = {
           ai: { title: "AI features", desc: "Smart suggestions and automation" },
         },
       },
-      budget: {
-        heading: "What budget do you",
-        accent: "have in mind?",
-        sub: "Type the amount you have in mind — a rough number is fine. It helps me suggest the right plan.",
-        currency: "EGP",
-        placeholder: "Type an amount",
-        unsure: "Not sure yet",
-      },
       deadline: {
         heading: "When do you",
         accent: "need it?",
@@ -240,41 +217,23 @@ export const translations: Record<Locale, Dictionary> = {
         },
       },
       result: {
-        heading: "Here's your",
-        accent: "estimate.",
+        heading: "Here's what",
+        accent: "you asked for.",
         sub: "",
-        cost: "Estimated cost",
-        timeline: "Timeline",
-        weeks: weeksEn,
+        summary: "Your project",
         included: "Always included",
         includes: {
           website: ["Mobile-friendly design", "WhatsApp & contact buttons", "Basic SEO", "Launch & domain setup"],
           system: ["Users & permissions", "Main dashboard", "Data backups", "Setup & training"],
           both: ["Mobile-friendly design", "Store and system share one database", "Users & permissions", "Launch & setup"],
         },
-        disclaimer: "An initial estimate based on your answers. The final price is set after a short, free call.",
-        budgetFit: {
-          unsure: "No budget yet? No problem — we'll shape the plan together.",
-          fits: "Your budget covers this.",
-          close: "Your budget is within range — we'll fine-tune the scope to stay inside it.",
-          phased: "We can start within your budget, then add the rest in a second phase.",
-          below: "That's below the starting cost for this — but message me anyway, we can find a simpler place to start.",
-        },
-        phaseNow: "Phase 1",
-        phaseLater: "Phase 2",
-        deadlineFit: {
-          flexible: "No rush — we'll plan it properly.",
-          fits: "Fits your timeline.",
-          tight: "Doable — if we start soon.",
-          phased: "A first working version in {weeks}, then the rest right after.",
-        },
+        note: "Send these answers and I'll reply on WhatsApp after a short, free conversation about your project.",
         answers: "Your answers",
         edit: "Edit",
         labels: {
           business: "Business",
           kind: "Type",
           features: "Features",
-          budget: "Budget",
           deadline: "Needed",
         },
         none: "None",
@@ -282,8 +241,7 @@ export const translations: Record<Locale, Dictionary> = {
         whatsappHint: "Your answers are already written in — just hit send.",
         email: "Or email me",
         startOver: "Start over",
-        greeting: "Hi Yehia, I came from your portfolio.",
-        estimateLine: "Estimate I got",
+        greeting: "Hi Yehia, I came from your portfolio and I'd like to talk about a project.",
         emailSubject: "New project",
       },
     },
@@ -472,7 +430,7 @@ export const translations: Record<Locale, Dictionary> = {
       capabilities: "الإمكانيات",
       process: "طريقة العمل",
       contact: "تواصل",
-      quote: "اعرف التكلفة",
+      quote: "ابدأ التقييم",
     },
     finder: {
       eyebrow: "يحيى أحمد — متاح لمشاريع جديدة",
@@ -480,10 +438,17 @@ export const translations: Record<Locale, Dictionary> = {
       back: "رجوع",
       skip: "وريني كل الشغل على طول",
       next: "كمّل",
+      choice: {
+        heading: "تحب تبدأ",
+        accent: "منين؟",
+        sub: "شوف الشغل الأول، أو احكيلي عن مشروعك في دقيقة.",
+        projects: { title: "شوف المشاريع", desc: "منتجات حقيقية عملتها — افتحها وجرّبها لايف" },
+        assess: { title: "ابدأ التقييم", desc: "كام سؤال سريع عن مشروعك — مش هتاخد دقيقة" },
+      },
       business: {
         heading: "إيه نوع",
         accent: "نشاطك؟",
-        sub: "اختار واحد — هوريك شغل عملته قريب منه، وبعدها تقدير للسعر. مش هتاخد دقيقة.",
+        sub: "اختار واحد — هوريك شغل عملته قريب منه، وبعدها هسألك كام سؤال سريع عن مشروعك.",
         options: {
           pharmacy: { title: "صيدلية أو عيادة", desc: "طلبات، مخزن، تواريخ صلاحية" },
           fashion: { title: "براند هدوم", desc: "متجر أونلاين لمنتجاتك" },
@@ -497,7 +462,7 @@ export const translations: Record<Locale, Dictionary> = {
         heading: "ده قريب من",
         accent: "اللي محتاجه.",
         sub: "مشاريع حقيقية صممتها وبنيتها بنفسي — افتحها وجرّبها لايف.",
-        cta: "اعرف التكلفة",
+        cta: "كمّل التقييم",
       },
       kind: {
         heading: "محتاج موقع ولا سيستم",
@@ -530,14 +495,6 @@ export const translations: Record<Locale, Dictionary> = {
           ai: { title: "ذكاء اصطناعي", desc: "اقتراحات ذكية وأتمتة" },
         },
       },
-      budget: {
-        heading: "الميزانية اللي",
-        accent: "في بالك؟",
-        sub: "اكتب المبلغ اللي في بالك — رقم تقريبي كفاية. بيساعدني أقترح الخطة المناسبة.",
-        currency: "ج.م",
-        placeholder: "اكتب المبلغ",
-        unsure: "لسه مش متأكد",
-      },
       deadline: {
         heading: "محتاجه",
         accent: "إمتى؟",
@@ -550,41 +507,23 @@ export const translations: Record<Locale, Dictionary> = {
         },
       },
       result: {
-        heading: "ده التقدير",
-        accent: "بتاعك.",
+        heading: "ده اللي",
+        accent: "محتاجه.",
         sub: "",
-        cost: "التكلفة المتوقعة",
-        timeline: "المدة",
-        weeks: weeksAr,
+        summary: "مشروعك",
         included: "موجود في كل الأحوال",
         includes: {
           website: ["تصميم مناسب للموبايل", "زراير واتساب وتواصل", "SEO أساسي", "رفع الموقع وربط الدومين"],
           system: ["مستخدمين وصلاحيات", "داشبورد رئيسية", "نسخ احتياطي للبيانات", "تسطيب وشرح الاستخدام"],
           both: ["تصميم مناسب للموبايل", "المتجر والسيستم على نفس الداتا", "مستخدمين وصلاحيات", "رفع وتسطيب"],
         },
-        disclaimer: "ده تقدير مبدئي حسب إجاباتك. السعر النهائي بيتحدد بعد مكالمة قصيرة ومجانية.",
-        budgetFit: {
-          unsure: "لسه محددتش ميزانية؟ مفيش مشكلة — هنحدد الخطة مع بعض.",
-          fits: "ميزانيتك مناسبة للمشروع ده.",
-          close: "ميزانيتك في حدود التقدير — هنظبط المميزات عشان نفضل جواها.",
-          phased: "نقدر نبدأ في حدود ميزانيتك، ونضيف الباقي في مرحلة تانية.",
-          below: "ده أقل من أقل تكلفة للنوع ده — بس كلمني برضه، ممكن نلاقي بداية أبسط.",
-        },
-        phaseNow: "المرحلة الأولى",
-        phaseLater: "المرحلة التانية",
-        deadlineFit: {
-          flexible: "مش مستعجل — هنخطط له صح.",
-          fits: "هيخلص في الميعاد اللي محتاجه.",
-          tight: "ينفع — لو بدأنا بسرعة.",
-          phased: "نسلّمك نسخة أولى شغالة خلال {weeks}، ونكمّل الباقي بعدها.",
-        },
+        note: "ابعت الإجابات دي وهرد عليك على واتساب بعد كلام قصير ومجاني عن مشروعك.",
         answers: "إجاباتك",
         edit: "تعديل",
         labels: {
           business: "النشاط",
           kind: "النوع",
           features: "المميزات",
-          budget: "الميزانية",
           deadline: "الميعاد",
         },
         none: "مفيش",
@@ -592,8 +531,7 @@ export const translations: Record<Locale, Dictionary> = {
         whatsappHint: "إجاباتك متكتبة جاهزة — دوس إرسال وبس.",
         email: "أو ابعتلي إيميل",
         startOver: "ابدأ من الأول",
-        greeting: "أهلاً يا يحيى، جاي من البورتفوليو بتاعك.",
-        estimateLine: "التقدير اللي ظهرلي",
+        greeting: "أهلاً يا يحيى، جاي من البورتفوليو بتاعك وعايز أتكلم معاك في مشروع.",
         emailSubject: "مشروع جديد",
       },
     },

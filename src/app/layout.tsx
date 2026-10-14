@@ -54,9 +54,9 @@ export const metadata: Metadata = {
 const themeInitScript = `
 try {
   var locale = window.localStorage.getItem('portfolio-locale');
-  if (locale === 'ar') {
-    document.documentElement.lang = 'ar';
-    document.documentElement.dir = 'rtl';
+  if (locale === 'en') {
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
   }
 } catch (e) {}
 `;
@@ -68,8 +68,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      dir="ltr"
+      lang="ar"
+      dir="rtl"
       suppressHydrationWarning
       className={`${display.variable} ${serif.variable} ${sans.variable} ${mono.variable} ${arabic.variable}`}
     >
