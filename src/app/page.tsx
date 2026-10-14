@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Hero from "@/components/sections/Hero";
+import ProjectFinder from "@/components/sections/ProjectFinder";
 import About from "@/components/sections/About";
 import SelectedWork from "@/components/sections/SelectedWork";
 import Capabilities from "@/components/sections/Capabilities";
@@ -17,9 +17,9 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <Hero hasPortrait={hasPortrait} />
+        <ProjectFinder />
         <SelectedWork />
-        <About />
+        <About hasPortrait={hasPortrait} />
         <Capabilities />
         <Skills />
         <Process />

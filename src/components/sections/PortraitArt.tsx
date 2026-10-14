@@ -17,7 +17,7 @@ export default function PortraitArt({ hasPortrait }: { hasPortrait: boolean }) {
   useMouseParallax(rootRef);
 
   return (
-    <div ref={rootRef} className="anim-fade relative mx-auto aspect-square w-full max-w-[420px]">
+    <div ref={rootRef} className="anim-fade relative mx-auto aspect-square w-full max-w-[320px]">
       <div
         aria-hidden
         className="absolute inset-[8%] rounded-full bg-[radial-gradient(closest-side,rgba(222,156,121,0.38),rgba(217,221,209,0.28)_65%,transparent)] transition-transform duration-300 ease-out"
@@ -59,8 +59,7 @@ export default function PortraitArt({ hasPortrait }: { hasPortrait: boolean }) {
                 src={`${basePath}/images/portrait.jpg`}
                 alt="Portrait of Yehia Ahmed"
                 fill
-                priority
-                sizes="(max-width: 640px) 320px, 420px"
+                sizes="320px"
                 className="object-cover"
                 style={{ filter: "grayscale(0.1) contrast(1.05) saturate(1.05)" }}
               />
@@ -78,7 +77,7 @@ export default function PortraitArt({ hasPortrait }: { hasPortrait: boolean }) {
         <div style={parallax(-14)} className="transition-transform duration-300 ease-out">
           <div className="anim-bob flex items-center gap-2 rounded-2xl border border-ink/10 bg-cream-50/90 px-4 py-3 shadow-lg backdrop-blur-sm">
             <Code2 size={16} className="text-clay-400" />
-            <span className="font-mono text-xs uppercase tracking-widest2 text-ink-50">{t.hero.badgeFullStack}</span>
+            <span className="font-mono text-xs uppercase tracking-widest2 text-ink-50">{t.about.badgeFullStack}</span>
           </div>
         </div>
       </div>

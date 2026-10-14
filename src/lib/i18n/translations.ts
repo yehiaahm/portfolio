@@ -1,4 +1,17 @@
+import type { BusinessId, DeadlineId, FeatureId, KindId, Range } from "@/lib/finder/config";
+
 export type Locale = "en" | "ar";
+
+interface OptionCopy {
+  title: string;
+  desc: string;
+}
+
+interface StepCopy {
+  heading: string;
+  accent: string;
+  sub: string;
+}
 
 export interface Project {
   index: string;
@@ -13,6 +26,7 @@ export interface Project {
 export interface Dictionary {
   dir: "ltr" | "rtl";
   langLabel: string;
+  name: string;
   email: string;
   nav: {
     work: string;
@@ -20,20 +34,43 @@ export interface Dictionary {
     capabilities: string;
     process: string;
     contact: string;
-    talk: string;
+    quote: string;
   };
-  hero: {
-    badge: string;
-    name: string;
-    line2: string;
-    line3: string;
-    accentWord: string;
-    tagline: string;
-    ctaWork: string;
-    ctaTalk: string;
-    scroll: string;
-    keywords: string[];
-    badgeFullStack: string;
+  finder: {
+    eyebrow: string;
+    stepLabel: string;
+    back: string;
+    skip: string;
+    next: string;
+    business: StepCopy & { options: Record<BusinessId, OptionCopy> };
+    match: StepCopy & { cta: string };
+    kind: StepCopy & { recommended: string; notSure: OptionCopy; options: Record<KindId, OptionCopy> };
+    features: StepCopy & { options: Record<FeatureId, OptionCopy> };
+    budget: StepCopy & { currency: string; placeholder: string; unsure: string };
+    deadline: StepCopy & { options: Record<DeadlineId, OptionCopy> };
+    result: StepCopy & {
+      cost: string;
+      timeline: string;
+      weeks: (n: number | Range) => string;
+      included: string;
+      includes: Record<KindId, string[]>;
+      disclaimer: string;
+      budgetFit: Record<"unsure" | "fits" | "close" | "phased" | "below", string>;
+      phaseNow: string;
+      phaseLater: string;
+      deadlineFit: Record<"flexible" | "fits" | "tight" | "phased", string>;
+      answers: string;
+      edit: string;
+      labels: { business: string; kind: string; features: string; budget: string; deadline: string };
+      none: string;
+      whatsapp: string;
+      whatsappHint: string;
+      email: string;
+      startOver: string;
+      greeting: string;
+      estimateLine: string;
+      emailSubject: string;
+    };
   };
   about: {
     index: string;
@@ -43,6 +80,7 @@ export interface Dictionary {
     body: string[];
     factsLabel: string;
     facts: { label: string; value: string }[];
+    badgeFullStack: string;
   };
   work: {
     index: string;
@@ -92,6 +130,21 @@ export interface Dictionary {
 
 const email = "yehiaahmed195200@gmail.com";
 
+const toRange = (n: number | Range): Range => (typeof n === "number" ? [n, n] : n);
+const rangeText = ([lo, hi]: Range) => (lo === hi ? `${lo}` : `${lo}–${hi}`);
+
+const weeksEn = (n: number | Range) => {
+  const r = toRange(n);
+  return `${rangeText(r)} ${r[1] === 1 ? "week" : "weeks"}`;
+};
+
+const weeksAr = (n: number | Range) => {
+  const r = toRange(n);
+  if (r[0] === r[1] && r[1] === 1) return "أسبوع";
+  if (r[0] === r[1] && r[1] === 2) return "أسبوعين";
+  return `${rangeText(r)} ${r[1] <= 10 ? "أسابيع" : "أسبوع"}`;
+};
+
 const socialsBase = [
   { key: "github", label: "GitHub", href: "https://github.com/yehiaahm" },
   { key: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/yahya-ahmed-035054325" },
@@ -101,6 +154,7 @@ export const translations: Record<Locale, Dictionary> = {
   en: {
     dir: "ltr",
     langLabel: "العربية",
+    name: "Yehia Ahmed",
     email,
     nav: {
       work: "Work",
@@ -108,28 +162,130 @@ export const translations: Record<Locale, Dictionary> = {
       capabilities: "Capabilities",
       process: "Process",
       contact: "Contact",
-      talk: "Let's Talk",
+      quote: "Get a Quote",
     },
-    hero: {
-      badge: "Available for opportunities",
-      name: "Yehia Ahmed",
-      line2: "I build software small",
-      line3: "businesses actually ",
-      accentWord: "run on.",
-      tagline:
-        "Full-stack developer building operational systems for small businesses — pharmacy e-commerce and inventory, retail storefronts, service-shop management — not portfolio demos.",
-      ctaWork: "Selected Work",
-      ctaTalk: "Let's Talk",
-      scroll: "Scroll",
-      keywords: [
-        "Full-Stack Development",
-        "Product Engineering",
-        "React & Next.js",
-        "System Design",
-        "Interaction Design",
-        "Clean Code",
-      ],
-      badgeFullStack: "Full-Stack",
+    finder: {
+      eyebrow: "Yehia Ahmed — taking new projects",
+      stepLabel: "Step {n} of {total}",
+      back: "Back",
+      skip: "Just show me all the work",
+      next: "Continue",
+      business: {
+        heading: "What kind of business",
+        accent: "do you run?",
+        sub: "Pick one — I'll show you work I've built that's close to it, then a price estimate. Takes under a minute.",
+        options: {
+          pharmacy: { title: "Pharmacy or clinic", desc: "Orders, stock, expiry dates" },
+          fashion: { title: "Clothing brand", desc: "An online store for your products" },
+          retail: { title: "Shop or restaurant", desc: "Stock, cashier and invoices" },
+          fitness: { title: "Gym or coach", desc: "Members, plans and subscriptions" },
+          startup: { title: "New idea or platform", desc: "An app or marketplace to launch" },
+          other: { title: "Something else", desc: "Show me your best work" },
+        },
+      },
+      match: {
+        heading: "Something close to",
+        accent: "what you need.",
+        sub: "Real projects I designed and built myself — open them and try them live.",
+        cta: "Get my estimate",
+      },
+      kind: {
+        heading: "Website, system,",
+        accent: "or both?",
+        sub: "Not sure? Go with the recommended one — we can adjust it later.",
+        recommended: "Recommended",
+        notSure: { title: "Not sure", desc: "Pick what fits my business" },
+        options: {
+          website: { title: "Website", desc: "Customers find you and buy from you online" },
+          system: { title: "System", desc: "Run the business from the inside — stock, cashier, accounts" },
+          both: { title: "Both", desc: "An online store connected to your internal system" },
+        },
+      },
+      features: {
+        heading: "What should it",
+        accent: "do?",
+        sub: "Pick everything you need. The usual ones for your business are already ticked.",
+        options: {
+          store: { title: "Online store", desc: "Products, cart and orders" },
+          payments: { title: "Online payments", desc: "Cards and mobile wallets" },
+          accounts: { title: "Customer accounts", desc: "Sign-in, order history and tracking" },
+          booking: { title: "Bookings", desc: "Appointments and reservations" },
+          dashboard: { title: "Admin dashboard", desc: "Manage products, orders and content yourself" },
+          inventory: { title: "Inventory & stock", desc: "Batches, expiry dates, low-stock alerts" },
+          pos: { title: "Cashier (POS)", desc: "Fast checkout and invoices" },
+          branches: { title: "Multiple branches", desc: "Stock and sales per branch" },
+          reports: { title: "Reports", desc: "Sales, profit and best sellers" },
+          desktop: { title: "Desktop app", desc: "Runs on Windows, even offline" },
+          bilingual: { title: "Arabic + English", desc: "Both languages, one switch" },
+          ai: { title: "AI features", desc: "Smart suggestions and automation" },
+        },
+      },
+      budget: {
+        heading: "What budget do you",
+        accent: "have in mind?",
+        sub: "Type the amount you have in mind — a rough number is fine. It helps me suggest the right plan.",
+        currency: "EGP",
+        placeholder: "Type an amount",
+        unsure: "Not sure yet",
+      },
+      deadline: {
+        heading: "When do you",
+        accent: "need it?",
+        sub: "If it's tight, I'll tell you what can be ready first.",
+        options: {
+          asap: { title: "As soon as possible", desc: "Within 2 weeks" },
+          month: { title: "Within a month", desc: "Around 4 weeks" },
+          quarter: { title: "In 1–3 months", desc: "Time to get it right" },
+          flexible: { title: "No rush", desc: "Whenever it's done well" },
+        },
+      },
+      result: {
+        heading: "Here's your",
+        accent: "estimate.",
+        sub: "",
+        cost: "Estimated cost",
+        timeline: "Timeline",
+        weeks: weeksEn,
+        included: "Always included",
+        includes: {
+          website: ["Mobile-friendly design", "WhatsApp & contact buttons", "Basic SEO", "Launch & domain setup"],
+          system: ["Users & permissions", "Main dashboard", "Data backups", "Setup & training"],
+          both: ["Mobile-friendly design", "Store and system share one database", "Users & permissions", "Launch & setup"],
+        },
+        disclaimer: "An initial estimate based on your answers. The final price is set after a short, free call.",
+        budgetFit: {
+          unsure: "No budget yet? No problem — we'll shape the plan together.",
+          fits: "Your budget covers this.",
+          close: "Your budget is within range — we'll fine-tune the scope to stay inside it.",
+          phased: "We can start within your budget, then add the rest in a second phase.",
+          below: "That's below the starting cost for this — but message me anyway, we can find a simpler place to start.",
+        },
+        phaseNow: "Phase 1",
+        phaseLater: "Phase 2",
+        deadlineFit: {
+          flexible: "No rush — we'll plan it properly.",
+          fits: "Fits your timeline.",
+          tight: "Doable — if we start soon.",
+          phased: "A first working version in {weeks}, then the rest right after.",
+        },
+        answers: "Your answers",
+        edit: "Edit",
+        labels: {
+          business: "Business",
+          kind: "Type",
+          features: "Features",
+          budget: "Budget",
+          deadline: "Needed",
+        },
+        none: "None",
+        whatsapp: "Send it on WhatsApp",
+        whatsappHint: "Your answers are already written in — just hit send.",
+        email: "Or email me",
+        startOver: "Start over",
+        greeting: "Hi Yehia, I came from your portfolio.",
+        estimateLine: "Estimate I got",
+        emailSubject: "New project",
+      },
     },
     about: {
       index: "03",
@@ -145,8 +301,9 @@ export const translations: Record<Locale, Dictionary> = {
       facts: [
         { label: "Focus", value: "Full-Stack Web Development" },
         { label: "Working style", value: "Remote-friendly" },
-        { label: "Available", value: "Open to opportunities" },
+        { label: "Available", value: "Taking new projects" },
       ],
+      badgeFullStack: "Full-Stack",
     },
     work: {
       index: "02",
@@ -288,10 +445,10 @@ export const translations: Record<Locale, Dictionary> = {
       ],
     },
     contact: {
-      badge: "Open to new opportunities",
+      badge: "Taking new projects",
       heading1: "Have an idea worth",
       heading2: "building well?",
-      body: "I'm currently open to freelance work, internships, and collaborations. If you've got a project in mind, I'd love to hear about it.",
+      body: "Tell me what your business needs — I'll reply with a clear plan, timeline and price.",
       socials: [
         ...socialsBase,
         { key: "whatsapp", label: "WhatsApp", href: "https://wa.me/201128779577" },
@@ -307,6 +464,7 @@ export const translations: Record<Locale, Dictionary> = {
   ar: {
     dir: "rtl",
     langLabel: "English",
+    name: "يحيى أحمد",
     email,
     nav: {
       work: "الأعمال",
@@ -314,28 +472,130 @@ export const translations: Record<Locale, Dictionary> = {
       capabilities: "الإمكانيات",
       process: "طريقة العمل",
       contact: "تواصل",
-      talk: "لنتحدث",
+      quote: "اعرف التكلفة",
     },
-    hero: {
-      badge: "متاح لفرص جديدة",
-      name: "يحيى أحمد",
-      line2: "أبني الأنظمة اللي",
-      line3: "شركات صغيرة فعلاً ",
-      accentWord: "بتشتغل بيها.",
-      tagline:
-        "مطور full-stack بابني أنظمة تشغيلية لشركات صغيرة — منصات صيدليات إلكترونية ومخزون، متاجر تجزئة، وأنظمة إدارة محلات — مش مجرد عروض بورتفوليو.",
-      ctaWork: "أعمالي المختارة",
-      ctaTalk: "لنتحدث",
-      scroll: "مرّر لأسفل",
-      keywords: [
-        "تطوير متكامل",
-        "هندسة المنتجات",
-        "React & Next.js",
-        "تصميم الأنظمة",
-        "تصميم التفاعل",
-        "كود نظيف",
-      ],
-      badgeFullStack: "مطور متكامل",
+    finder: {
+      eyebrow: "يحيى أحمد — متاح لمشاريع جديدة",
+      stepLabel: "خطوة {n} من {total}",
+      back: "رجوع",
+      skip: "وريني كل الشغل على طول",
+      next: "كمّل",
+      business: {
+        heading: "إيه نوع",
+        accent: "نشاطك؟",
+        sub: "اختار واحد — هوريك شغل عملته قريب منه، وبعدها تقدير للسعر. مش هتاخد دقيقة.",
+        options: {
+          pharmacy: { title: "صيدلية أو عيادة", desc: "طلبات، مخزن، تواريخ صلاحية" },
+          fashion: { title: "براند هدوم", desc: "متجر أونلاين لمنتجاتك" },
+          retail: { title: "محل أو مطعم", desc: "مخزن، كاشير، وفواتير" },
+          fitness: { title: "جيم أو كوتش", desc: "مشتركين، برامج، واشتراكات" },
+          startup: { title: "فكرة أو منصة جديدة", desc: "تطبيق أو منصة عايز تطلقها" },
+          other: { title: "حاجة تانية", desc: "وريني أحسن شغلك" },
+        },
+      },
+      match: {
+        heading: "ده قريب من",
+        accent: "اللي محتاجه.",
+        sub: "مشاريع حقيقية صممتها وبنيتها بنفسي — افتحها وجرّبها لايف.",
+        cta: "اعرف التكلفة",
+      },
+      kind: {
+        heading: "محتاج موقع ولا سيستم",
+        accent: "ولا الاتنين؟",
+        sub: "مش متأكد؟ اختار المقترح — نقدر نعدّل بعدين.",
+        recommended: "مقترح ليك",
+        notSure: { title: "مش عارف", desc: "اختارلي المناسب لنشاطي" },
+        options: {
+          website: { title: "موقع", desc: "الناس تعرفك وتشتري منك أونلاين" },
+          system: { title: "سيستم", desc: "تدير شغلك من جوه — مخزن، كاشير، حسابات" },
+          both: { title: "الاتنين", desc: "متجر أونلاين مربوط بسيستم الإدارة بتاعك" },
+        },
+      },
+      features: {
+        heading: "محتاجه",
+        accent: "يعمل إيه؟",
+        sub: "اختار كل اللي محتاجه. علّمتلك على المعتاد لنشاطك.",
+        options: {
+          store: { title: "متجر أونلاين", desc: "منتجات، سلة، وطلبات" },
+          payments: { title: "دفع أونلاين", desc: "فيزا ومحافظ إلكترونية" },
+          accounts: { title: "حسابات للعملاء", desc: "تسجيل دخول، طلبات سابقة، وتتبع" },
+          booking: { title: "حجوزات", desc: "مواعيد وحجز أونلاين" },
+          dashboard: { title: "لوحة تحكم", desc: "تدير المنتجات والطلبات والمحتوى بنفسك" },
+          inventory: { title: "مخزن", desc: "دفعات، تواريخ صلاحية، وتنبيه لما حاجة تخلص" },
+          pos: { title: "كاشير", desc: "بيع سريع وفواتير" },
+          branches: { title: "أكتر من فرع", desc: "مخزن ومبيعات لكل فرع" },
+          reports: { title: "تقارير", desc: "مبيعات، أرباح، والأكتر مبيعًا" },
+          desktop: { title: "برنامج ديسكتوب", desc: "يشتغل على الويندوز حتى من غير نت" },
+          bilingual: { title: "عربي + إنجليزي", desc: "اللغتين بزرار واحد" },
+          ai: { title: "ذكاء اصطناعي", desc: "اقتراحات ذكية وأتمتة" },
+        },
+      },
+      budget: {
+        heading: "الميزانية اللي",
+        accent: "في بالك؟",
+        sub: "اكتب المبلغ اللي في بالك — رقم تقريبي كفاية. بيساعدني أقترح الخطة المناسبة.",
+        currency: "ج.م",
+        placeholder: "اكتب المبلغ",
+        unsure: "لسه مش متأكد",
+      },
+      deadline: {
+        heading: "محتاجه",
+        accent: "إمتى؟",
+        sub: "لو الوقت ضيق، هقولك إيه اللي ممكن يجهز الأول.",
+        options: {
+          asap: { title: "في أسرع وقت", desc: "خلال أسبوعين" },
+          month: { title: "خلال شهر", desc: "حوالي 4 أسابيع" },
+          quarter: { title: "من شهر لـ 3 شهور", desc: "وقت كفاية يطلع مظبوط" },
+          flexible: { title: "مش مستعجل", desc: "المهم يطلع كويس" },
+        },
+      },
+      result: {
+        heading: "ده التقدير",
+        accent: "بتاعك.",
+        sub: "",
+        cost: "التكلفة المتوقعة",
+        timeline: "المدة",
+        weeks: weeksAr,
+        included: "موجود في كل الأحوال",
+        includes: {
+          website: ["تصميم مناسب للموبايل", "زراير واتساب وتواصل", "SEO أساسي", "رفع الموقع وربط الدومين"],
+          system: ["مستخدمين وصلاحيات", "داشبورد رئيسية", "نسخ احتياطي للبيانات", "تسطيب وشرح الاستخدام"],
+          both: ["تصميم مناسب للموبايل", "المتجر والسيستم على نفس الداتا", "مستخدمين وصلاحيات", "رفع وتسطيب"],
+        },
+        disclaimer: "ده تقدير مبدئي حسب إجاباتك. السعر النهائي بيتحدد بعد مكالمة قصيرة ومجانية.",
+        budgetFit: {
+          unsure: "لسه محددتش ميزانية؟ مفيش مشكلة — هنحدد الخطة مع بعض.",
+          fits: "ميزانيتك مناسبة للمشروع ده.",
+          close: "ميزانيتك في حدود التقدير — هنظبط المميزات عشان نفضل جواها.",
+          phased: "نقدر نبدأ في حدود ميزانيتك، ونضيف الباقي في مرحلة تانية.",
+          below: "ده أقل من أقل تكلفة للنوع ده — بس كلمني برضه، ممكن نلاقي بداية أبسط.",
+        },
+        phaseNow: "المرحلة الأولى",
+        phaseLater: "المرحلة التانية",
+        deadlineFit: {
+          flexible: "مش مستعجل — هنخطط له صح.",
+          fits: "هيخلص في الميعاد اللي محتاجه.",
+          tight: "ينفع — لو بدأنا بسرعة.",
+          phased: "نسلّمك نسخة أولى شغالة خلال {weeks}، ونكمّل الباقي بعدها.",
+        },
+        answers: "إجاباتك",
+        edit: "تعديل",
+        labels: {
+          business: "النشاط",
+          kind: "النوع",
+          features: "المميزات",
+          budget: "الميزانية",
+          deadline: "الميعاد",
+        },
+        none: "مفيش",
+        whatsapp: "ابعتها على واتساب",
+        whatsappHint: "إجاباتك متكتبة جاهزة — دوس إرسال وبس.",
+        email: "أو ابعتلي إيميل",
+        startOver: "ابدأ من الأول",
+        greeting: "أهلاً يا يحيى، جاي من البورتفوليو بتاعك.",
+        estimateLine: "التقدير اللي ظهرلي",
+        emailSubject: "مشروع جديد",
+      },
     },
     about: {
       index: "03",
@@ -351,8 +611,9 @@ export const translations: Record<Locale, Dictionary> = {
       facts: [
         { label: "التركيز", value: "تطوير الويب المتكامل" },
         { label: "طريقة العمل", value: "عن بُعد" },
-        { label: "التوفر", value: "متاح لفرص جديدة" },
+        { label: "التوفر", value: "متاح لمشاريع جديدة" },
       ],
+      badgeFullStack: "مطور متكامل",
     },
     work: {
       index: "02",
@@ -483,10 +744,10 @@ export const translations: Record<Locale, Dictionary> = {
       ],
     },
     contact: {
-      badge: "متاح لفرص جديدة",
+      badge: "متاح لمشاريع جديدة",
       heading1: "عندك فكرة تستاهل",
       heading2: "تتبني كويس؟",
-      body: "متاح حاليًا للشغل الفريلانس، التدريب، والتعاون. لو عندك مشروع في بالك، هبقى مبسوط أسمع عنه.",
+      body: "قولّي نشاطك محتاج إيه — وهرد عليك بخطة واضحة ومدة وسعر.",
       socials: [
         ...socialsBase,
         { key: "whatsapp", label: "واتساب", href: "https://wa.me/201128779577" },

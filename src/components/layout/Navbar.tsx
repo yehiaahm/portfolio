@@ -69,11 +69,11 @@ export default function Navbar() {
             <LanguageToggle />
             <MagneticButton>
               <a
-                href="#contact"
+                href="#start"
                 data-cursor="Go"
                 className="flex items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 font-mono text-xs uppercase tracking-widest2 text-cream-100 transition-colors duration-300 hover:bg-clay-300"
               >
-                {t.nav.talk}
+                {t.nav.quote}
                 <ArrowUpRight size={14} />
               </a>
             </MagneticButton>
@@ -114,7 +114,7 @@ export default function Navbar() {
               </div>
             </div>
             <nav className="container-px flex flex-1 flex-col justify-center gap-2">
-              {navItems.map((item, i) => (
+              {[{ label: t.nav.quote, href: "#start" }, ...navItems].map((item, i) => (
                 <motion.a
                   key={item.href}
                   href={item.href}

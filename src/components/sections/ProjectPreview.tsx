@@ -43,6 +43,11 @@ const media = {
 
 export type PreviewName = keyof typeof media;
 
+export function thumbnailFor(name: PreviewName) {
+  const item: Media = media[name];
+  return `${basePath}${item.kind === "video" ? item.poster : item.src}`;
+}
+
 function DemoVideo({ src, poster, playLabel }: { src: string; poster: string; playLabel: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [started, setStarted] = useState(false);

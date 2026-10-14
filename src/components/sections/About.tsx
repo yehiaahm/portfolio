@@ -1,14 +1,15 @@
 "use client";
 
 import FadeIn from "@/components/ui/FadeIn";
+import PortraitArt from "@/components/sections/PortraitArt";
 import RevealText from "@/components/ui/RevealText";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-export default function About() {
+export default function About({ hasPortrait }: { hasPortrait: boolean }) {
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="container-px mx-auto max-w-content py-28 sm:py-36">
+    <section id="about" className="container-px mx-auto max-w-content overflow-x-clip py-28 sm:py-36">
       <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
         <div>
           <FadeIn amount={0.8}>
@@ -38,7 +39,8 @@ export default function About() {
           </FadeIn>
         </div>
 
-        <FadeIn delay={0.2} amount={0.5}>
+        <FadeIn delay={0.2} amount={0.3} className="flex flex-col gap-14">
+          <PortraitArt hasPortrait={hasPortrait} />
           <div className="rounded-3xl border border-ink/10 bg-cream-50 p-8 sm:p-10">
             <span className="font-mono text-xs uppercase tracking-widest2 text-ink-50">
               {t.about.factsLabel}
